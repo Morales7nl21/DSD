@@ -88,12 +88,17 @@ public class Practica1 {
     public static void main(String[] args) throws Exception {
         if (args.length == 1) { // si hay más de 1 parámetro
             int tipoU = Integer.parseInt(args[0]);
-            if (tipoU == 1) {
+            if (tipoU == 1)
                 Servidor.iniciaServidor(50001);
-            } else if (tipoU == 2) {
+            else if (tipoU == 2)
+                Servidor.iniciaServidor(50002);
+            else if (tipoU == 3)
+                Servidor.iniciaServidor(50003);
+            else if (tipoU == 4)
+                Servidor.iniciaServidor(50004);
+            else if (tipoU == 0)
                 Cliente.iniciaCliente();
 
-            }
             System.out.println("Tipo de usario:" + String.valueOf(tipoU));
         } else if (args.length == 0) { // si no hay parámetros
             System.out.println("Debes ingresar el numero del nodo");
