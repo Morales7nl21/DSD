@@ -80,13 +80,10 @@ public class Practica1 {
                     Worker[] cth = new Worker[4];
                     for (int i = 0; i < 4; i++) {
                         cth[i] = new Worker(port++);
-                    }
-                    for (int i = 0; i < 4; i++) {
                         cth[i].start();
-                    }
-                    for (int i = 0; i < 4; i++) {
                         cth[i].join();
                     }
+
                     break;
                 } catch (Exception e) {
                     e.printStackTrace();
