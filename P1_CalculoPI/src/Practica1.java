@@ -13,13 +13,13 @@ public class Practica1 {
                     System.out.println("Esperando");
                     Socket conexion = servidor.accept();
                     System.out.println(conexion.getPort());
-                    int valServ = port - 5000;
+                    int valServ = port - 50000;
                     double resDouble = 0;
                     DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
                     // DataInputStream in = new DataInputStream(conexion.getInputStream());
                     out.writeUTF("Hola soy " + String.valueOf(port));
                     System.out.println("Valor de servidor (i) = " + String.valueOf(valServ));
-                    for (int i = 0; i < 999999; i++) {
+                    for (int i = 0; i <= 999999; i++) {
                         resDouble += (4.0 / (8 * i + 2 * (valServ) + 3));
                     }
                     if (valServ % 2 == 0) {// Si es par
