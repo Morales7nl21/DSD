@@ -59,7 +59,6 @@ public class Practica1 {
                         System.out.println(dev);
                         pi += in.readDouble();
                         cont++;
-                        System.out.println("cont" + String.valueOf(cont));
                         if (cont == 4) {
                             System.out.println(pi);
                         }
@@ -112,11 +111,11 @@ public class Practica1 {
             else if (tipoU == 0)
                 Cliente.iniciaCliente();
 
-            System.out.println("Tipo de usario:" + String.valueOf(tipoU));
+            System.out.println("Tipo de usuario: " + String.valueOf(tipoU));
         } else if (args.length == 0) { // si no hay parámetros
             System.out.println("Debes ingresar el numero del nodo");
         } else {
-            System.out.println("Demaciados parametros");
+            System.out.println("Demasiados parametros");
         }
     }
 
