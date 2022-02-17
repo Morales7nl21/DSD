@@ -1,11 +1,7 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.ByteBuffer;
-
-import org.w3c.dom.ranges.Range;
 
 public class Practica1 {
 
@@ -20,9 +16,9 @@ public class Practica1 {
                     int valServ = port - 5000;
                     double resDouble = 0;
                     DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
-                    DataInputStream in = new DataInputStream(conexion.getInputStream());
+                    // DataInputStream in = new DataInputStream(conexion.getInputStream());
                     out.writeUTF("Hola soy " + String.valueOf(port));
-
+                    System.out.println("Valor de servidor (i) = " + String.valueOf(valServ));
                     for (int i = 0; i < 999999; i++) {
                         resDouble += (4.0 / (8 * i + 2 * (valServ) + 3));
                     }
@@ -40,13 +36,12 @@ public class Practica1 {
 
     static class Cliente {
 
-        double pi;
         static Object lock = new Object();
         static int port = 50001;
 
         static class Worker extends Thread {
-
             int port;
+            double pi;
 
             Worker(int port) {
                 this.port = port;
@@ -61,6 +56,8 @@ public class Practica1 {
                     synchronized (lock) {
                         String dev = in.readUTF();
                         System.out.println(dev);
+                        pi = in.readDouble();
+                        System.out.println(pi);
                     }
                     conn.close();
 
@@ -86,7 +83,6 @@ public class Practica1 {
                     for (int i = 0; i < 4; i++) {
                         cth[i].join();
                     }
-
                     break;
                 } catch (Exception e) {
                     e.printStackTrace();
