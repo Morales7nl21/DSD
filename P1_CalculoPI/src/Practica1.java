@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import org.w3c.dom.ranges.Range;
+
 public class Practica1 {
 
     static class Servidor {
@@ -12,12 +14,23 @@ public class Practica1 {
         static void iniciaServidor(int port) throws Exception {
             try (ServerSocket servidor = new ServerSocket(port)) {
                 for (;;) {
+                    System.out.println("Esperando");
                     Socket conexion = servidor.accept();
                     System.out.println(conexion.getPort());
-
+                    int valServ = port - 5000;
+                    double resDouble = 0;
                     DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
                     DataInputStream in = new DataInputStream(conexion.getInputStream());
                     out.writeUTF("Hola soy " + String.valueOf(port));
+
+                    for (int i = 0; i < 999999; i++) {
+                        resDouble += (4.0 / (8 * i + 2 * (valServ) + 3));
+                    }
+                    if (valServ % 2 == 0) {// Si es par
+                        resDouble *= -1;
+                    }
+
+                    out.writeDouble(resDouble);
                     conexion.close();
                 }
             }
@@ -26,9 +39,10 @@ public class Practica1 {
     }
 
     static class Cliente {
-        Socket conn = null;
-        static int port = 5001;
+
+        double pi;
         static Object lock = new Object();
+        static int port = 50001;
 
         static class Worker extends Thread {
 
@@ -39,21 +53,18 @@ public class Practica1 {
             }
 
             public void run() {
-                Socket conn = null;
+
                 try {
+                    Socket conn = null;
+                    conn = new Socket("localhost", port);
+                    DataInputStream in = new DataInputStream(conn.getInputStream());
                     synchronized (lock) {
-                        conn = new Socket("localhost", port);
-                        port++;
+                        String dev = in.readUTF();
+                        System.out.println(dev);
                     }
+                    conn.close();
 
                 } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                try (DataInputStream in = new DataInputStream(conn.getInputStream());) {
-                    String dev = in.readUTF();
-                    System.out.println(dev);
-                } catch (IOException e) {
-
                     e.printStackTrace();
                 }
 
@@ -62,16 +73,17 @@ public class Practica1 {
         }
 
         public static void iniciaCliente() throws Exception {
+
             for (;;) {
                 try {
                     Worker[] cth = new Worker[4];
                     for (int i = 0; i < 4; i++) {
-                        cth[i] = new Worker(port);
+                        cth[i] = new Worker(port++);
                     }
                     for (int i = 0; i < 4; i++) {
                         cth[i].start();
                     }
-                    for (int i = 0; i < cth.length; i++) {
+                    for (int i = 0; i < 4; i++) {
                         cth[i].join();
                     }
 
@@ -106,4 +118,5 @@ public class Practica1 {
             System.out.println("Demaciados parametros");
         }
     }
+
 }
