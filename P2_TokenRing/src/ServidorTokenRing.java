@@ -10,6 +10,7 @@ import javax.net.ssl.SSLSocketFactory;
 public class ServidorTokenRing {
     public static Short Token = 0;
     public static int verIni = 0;
+    public static Object lock;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         System.setProperty("javax.net.ssl.trustStore", "keystore_Ring.jks");
@@ -41,9 +42,12 @@ public class ServidorTokenRing {
                 if (Token >= 500 && tipoU == 0) {
                     System.out.println("SE ha llegado a 500 o mas y se cierra el nodo 0");
                 }
-                Token++;
-                mandarToken(tipoU, Token);
-                Thread.sleep(1000);
+                synchronized (lock) {
+                    Token++;
+                    mandarToken(tipoU, Token);
+                    Thread.sleep(200);
+                }
+
             }
 
         } else if (args.length == 0) { // si no hay parámetros
@@ -60,7 +64,7 @@ public class ServidorTokenRing {
         Socket con = cl.createSocket("localhost", 50000 + (tipoU + 1) % 6);
         DataOutputStream s = new DataOutputStream(con.getOutputStream());
         s.writeShort(token2);
-        // Thread.sleep(1000);
+        Thread.sleep(200);
         con.close();
 
     }
