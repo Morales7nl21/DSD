@@ -25,7 +25,7 @@ public class ServidorTokenRing {
             if (verIni == 0 && tipoU == 0) {
 
                 mandarToken(tipoU, Token);
-
+                Token++;
                 verIni++;
 
             }
