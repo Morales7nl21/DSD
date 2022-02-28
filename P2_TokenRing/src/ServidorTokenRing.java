@@ -8,7 +8,7 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
 public class ServidorTokenRing {
-    public static Short Token = 0;
+
     public static int verIni = 0;
     public static Object lock;
 
@@ -17,15 +17,16 @@ public class ServidorTokenRing {
         System.setProperty("javax.net.ssl.trustStorePassword", "1234567");
         System.setProperty("javax.net.ssl.keyStore", "keystore_Ring.jks");
         System.setProperty("javax.net.ssl.keyStorePassword", "1234567");
+        Short Token = 0;
+
         if (args.length == 1) {
             int tipoU = Integer.parseInt(args[0]);
 
             if (verIni == 0 && tipoU == 0) {
-                synchronized (lock) {
-                    mandarToken(tipoU, Token);
-                    Token++;
-                    verIni++;
-                }
+
+                mandarToken(tipoU, Token);
+
+                verIni++;
 
             }
             System.out.println("Tipo de usuario: " + String.valueOf(tipoU));
@@ -37,19 +38,17 @@ public class ServidorTokenRing {
                 conexion = socket_servidor.accept();
                 if (conexion.isConnected() == true) {
                     DataInputStream entrada = new DataInputStream(conexion.getInputStream());
-                    Short x = (short) entrada.readUnsignedShort();
-                    System.out.println("valor del short -> " + String.valueOf(x));
+                    Token = (short) entrada.readUnsignedShort();
+                    System.out.println("valor del short -> " + String.valueOf(Token));
                     conexion.close();
                 }
 
                 if (Token >= 500 && tipoU == 0) {
                     System.out.println("SE ha llegado a 500 o mas y se cierra el nodo 0");
                 }
-                synchronized (lock) {
-                    Token++;
-                    mandarToken(tipoU, Token);
-                    Thread.sleep(200);
-                }
+                Token++;
+                mandarToken(tipoU, Token);
+                Thread.sleep(200);
 
             }
 
@@ -68,6 +67,7 @@ public class ServidorTokenRing {
         DataOutputStream s = new DataOutputStream(con.getOutputStream());
         s.writeShort(token2);
         Thread.sleep(200);
+
         con.close();
 
     }
