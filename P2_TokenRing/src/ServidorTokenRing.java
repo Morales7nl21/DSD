@@ -34,8 +34,12 @@ public class ServidorTokenRing {
                 if (conexion.isConnected() == true) {
                     DataInputStream entrada = new DataInputStream(conexion.getInputStream());
                     Short x = (short) entrada.readUnsignedShort();
-                    System.out.println(x);
+                    System.out.println("valor del short -> " + String.valueOf(x));
                     conexion.close();
+                }
+
+                if (Token >= 500 && tipoU == 0) {
+                    System.out.println("SE ha llegado a 500 o mas y se cierra el nodo 0");
                 }
                 Token++;
                 mandarToken(tipoU, Token);
@@ -56,7 +60,7 @@ public class ServidorTokenRing {
         Socket con = cl.createSocket("localhost", 50000 + (tipoU + 1) % 6);
         DataOutputStream s = new DataOutputStream(con.getOutputStream());
         s.writeShort(token2);
-        Thread.sleep(1000);
+        // Thread.sleep(1000);
         con.close();
 
     }
