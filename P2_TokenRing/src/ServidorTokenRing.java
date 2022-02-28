@@ -25,15 +25,19 @@ public class ServidorTokenRing {
                 verIni++;
             }
             System.out.println("Tipo de usuario: " + String.valueOf(tipoU));
+            SSLServerSocketFactory socket_factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+            ServerSocket socket_servidor = socket_factory.createServerSocket(50000 + tipoU);
+            Socket conexion = null;
             for (;;) {
-                SSLServerSocketFactory socket_factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-                ServerSocket socket_servidor = socket_factory.createServerSocket(50000 + tipoU);
-                Socket conexion = socket_servidor.accept();
 
-                DataInputStream entrada = new DataInputStream(conexion.getInputStream());
-                Short x = (short) entrada.readUnsignedShort();
-                System.out.println(x);
-                conexion.close();
+                conexion = socket_servidor.accept();
+                if (conexion.isConnected() == true) {
+                    DataInputStream entrada = new DataInputStream(conexion.getInputStream());
+                    Short x = (short) entrada.readUnsignedShort();
+                    System.out.println(x);
+                    conexion.close();
+                }
+
                 Thread.sleep(1000);
             }
 
