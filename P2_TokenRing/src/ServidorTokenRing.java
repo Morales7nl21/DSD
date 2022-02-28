@@ -8,7 +8,8 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
 public class ServidorTokenRing {
-    public static int Token = 0;
+    public static Short Token = 0;
+    public static int verIni = 0;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         System.setProperty("javax.net.ssl.trustStore", "keystore_Ring.jks");
@@ -18,15 +19,19 @@ public class ServidorTokenRing {
         if (args.length == 1) {
             int tipoU = Integer.parseInt(args[0]);
 
-            mandarToken(tipoU, Token);
+            if (verIni == 0 && tipoU == 0) {
+                mandarToken(tipoU, Token);
+                Token++;
+                verIni++;
+            }
             System.out.println("Tipo de usuario: " + String.valueOf(tipoU));
             for (;;) {
                 SSLServerSocketFactory socket_factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
-                ServerSocket socket_servidor = socket_factory.createServerSocket(50000);
+                ServerSocket socket_servidor = socket_factory.createServerSocket(50000 + tipoU);
                 Socket conexion = socket_servidor.accept();
-                DataOutputStream salida = new DataOutputStream(conexion.getOutputStream());
+
                 DataInputStream entrada = new DataInputStream(conexion.getInputStream());
-                double x = entrada.readDouble();
+                Short x = (short) entrada.readUnsignedShort();
                 System.out.println(x);
                 conexion.close();
                 Thread.sleep(1000);
@@ -40,13 +45,12 @@ public class ServidorTokenRing {
 
     }
 
-    private static void mandarToken(int tipoU, int token2) throws IOException, InterruptedException {
+    private static void mandarToken(int tipoU, Short token2) throws IOException, InterruptedException {
 
         SSLSocketFactory cl = (SSLSocketFactory) SSLSocketFactory.getDefault();
         Socket con = cl.createSocket("localhost", 50000 + (tipoU + 1) % 6);
         DataOutputStream s = new DataOutputStream(con.getOutputStream());
-        DataInputStream e = new DataInputStream(con.getInputStream());
-        s.writeDouble(3.14167198);
+        s.writeShort(token2);
         Thread.sleep(1000);
         con.close();
 
