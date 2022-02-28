@@ -21,9 +21,12 @@ public class ServidorTokenRing {
             int tipoU = Integer.parseInt(args[0]);
 
             if (verIni == 0 && tipoU == 0) {
-                mandarToken(tipoU, Token);
-                Token++;
-                verIni++;
+                synchronized (lock) {
+                    mandarToken(tipoU, Token);
+                    Token++;
+                    verIni++;
+                }
+
             }
             System.out.println("Tipo de usuario: " + String.valueOf(tipoU));
             SSLServerSocketFactory socket_factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
