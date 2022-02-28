@@ -37,7 +37,8 @@ public class ServidorTokenRing {
                     System.out.println(x);
                     conexion.close();
                 }
-
+                Token++;
+                mandarToken(tipoU, Token);
                 Thread.sleep(1000);
             }
 
