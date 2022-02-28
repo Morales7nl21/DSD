@@ -44,7 +44,7 @@ public class ServidorTokenRing {
                     conexion.close();
                 }
 
-                if (Token >= 200 && tipoU == 0) {
+                if (Token >= 500 && tipoU == 0) {
                     System.out.println("SE ha llegado a 500 o mas y se cierra el nodo 0");
                     System.exit(0);
                 }
