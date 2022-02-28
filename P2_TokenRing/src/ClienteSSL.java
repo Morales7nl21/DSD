@@ -1,5 +1,3 @@
-package EjercicioBase;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -16,6 +14,7 @@ public class ClienteSSL {
         salida.writeDouble(123456789.123456789);
         Thread.sleep(1000);
         conexion.close();
+
     }
 
 }
