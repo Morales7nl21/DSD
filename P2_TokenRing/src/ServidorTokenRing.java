@@ -40,6 +40,7 @@ public class ServidorTokenRing {
                     DataInputStream entrada = new DataInputStream(conexion.getInputStream());
                     Token = (short) entrada.readUnsignedShort();
                     System.out.println("valor del short -> " + String.valueOf(Token));
+                    Thread.sleep(200);
                     conexion.close();
                 }
 
@@ -49,7 +50,6 @@ public class ServidorTokenRing {
                 }
                 Token++;
                 mandarToken(tipoU, Token);
-                Thread.sleep(200);
 
             }
 
