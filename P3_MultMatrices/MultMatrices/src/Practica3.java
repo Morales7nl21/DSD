@@ -30,7 +30,7 @@ public class Practica3 implements InnerIproutesInterface {
         
         // Primer valor matriz, segundo el nodo destino para la ip, el tercero el numero
         // de matriz para guardarla en la localidad especifica
-        // A1 = 1, A2 = 2, B1 = 3, B2= 4, el ultimo parametro son las dimensiones
+        // A1 = 1, A2 = 2, B1 = 3, B2= 4, C1 = 5, c2 = 6 ...
         enviaMatriz(A1, 1, 1);
         enviaMatriz(B1T, 1, 3);
         enviaMatriz(A1, 2, 1);
@@ -72,7 +72,9 @@ public class Practica3 implements InnerIproutesInterface {
     }
 
     static void funcNodo1() {
-
+        recibeMatriz(1);
+        C1 = multRenglon(A1, B1);
+        enviaMatriz(C1, 0, 5);
     }
 
     static void funcNodo2() {
