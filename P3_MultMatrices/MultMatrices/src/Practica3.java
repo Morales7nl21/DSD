@@ -27,10 +27,20 @@ public class Practica3 implements InnerIproutesInterface {
         System.out.println("----------------------------------------------------------");
         System.out.println("----------------------------------------------------------");
         imprimeMatriz(B);
-        System.out.println("----------------------------------------------------------");
+        System.out.println("----------------Normal------------------------------------");
         imprimeMatriz(B1);
+
         System.out.println("----------------------------------------------------------");
         imprimeMatriz(B2);
+
+        System.out.println();
+        System.out.println("----------------------------------------------------------");
+        // System.out.println("----------------------------------------------------------");
+        // funcMultNormal();
+        System.out.println("-------------Transpuesta-B1-------------------------------");
+        transponeMatriz(1);
+        System.out.println("-------------Transpuesta-B2-------------------------------");
+        transponeMatriz(2);
         /*
          * for (;;) {
          * try (ServerSocket servidor = new ServerSocket(PORT)) {
@@ -44,6 +54,14 @@ public class Practica3 implements InnerIproutesInterface {
          * 
          * }
          */
+    }
+
+    static void funcNodo1() {
+
+    }
+
+    static void funcNodo2() {
+
     }
 
     static void imprimeMatriz(double[][] m) {
@@ -66,18 +84,51 @@ public class Practica3 implements InnerIproutesInterface {
                 B[i][j] = 5 * i - j;
             }
         }
-        for (int i = 0; i < N ; i++) {
+        for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (i < N / 2) {
                     A1[i][j] = i + 5 * j;
                     A2[i][j] = i + N / 2 + 5 * j;
                 }
-                if(j<N/2){
+                if (j < N / 2) {
                     B1[i][j] = 5 * i - j;
                     B2[i][j] = 5 * i - j - N / 2;
                 }
 
             }
-        }        
+        }
+    }
+
+    static void funcMultNormal() {
+        double[][] C = new double[N][N];
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < i; j++) {
+                double x = B[i][j];
+                B[i][j] = B[j][i];
+                B[j][i] = x;
+            }
+        }
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                for (int j2 = 0; j2 < N; j2++) {
+                    C[i][j] += A[i][j2] * B[j][j2];
+                }
+            }
+        }
+        imprimeMatriz(C);
+    }
+
+    static void transponeMatriz(int opM) {
+        
+        for (int i = 0; i < B1.length; i++) {
+            for (int j = 0; j < B1[i].length; j++) {
+                if(opM==1) B1T[j][i] = B1[i][j];
+                else if(opM==2) B2T[j][i] = B2[i][j];
+            }
+        }
+        if(opM == 1)
+            imprimeMatriz(B1T);        
+        else if (opM==2)imprimeMatriz(B2T);
+            
     }
 }
