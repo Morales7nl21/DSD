@@ -84,7 +84,16 @@ public class Practica3 implements InnerIproutesInterface {
     }
 
     static void calcChecksum() {
-
+        double ckm = 0;        
+        for (int i = 0; i < N/2; i++) {
+            for (int j = 0; j < N; j++) {
+                ckm += C1[i][j];
+                ckm += C2[i][j];
+                ckm += C3[i][j];
+                ckm += C4[i][j];
+            }
+        }
+        System.out.println("Checksum = " + String.valueOf(ckm));
     }
 
     static void creaMatrices() {
