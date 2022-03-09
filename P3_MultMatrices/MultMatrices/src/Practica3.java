@@ -7,7 +7,8 @@ public class Practica3 implements InnerIproutesInterface {
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
             int tipoU = Integer.parseInt(args[0]);
-            funcNodo0();
+            if (tipoU == 0)
+                funcNodo0();
 
         } else if (args.length == 0) { // si no hay parámetros
             System.out.println("Debes ingresar el numero del nodo");
@@ -22,12 +23,15 @@ public class Practica3 implements InnerIproutesInterface {
         pruebaFunc();
         transponeMatriz(1);
         transponeMatriz(2);
-        enviaMatriz(A1,1);
-        enviaMatriz(B1,1);
-        enviaMatriz(A1,2);
-        enviaMatriz(B2,2);
-        enviaMatriz(A2,3);
-        enviaMatriz(B1,3);
+        // Primer valor matriz, segundo el nodo destino para la ip, el tercero el numero
+        // de matriz para guardarla en la localidad especifica
+        // A1 = 1, A2 = 2, B1 = 3, B2= 4, el ultimo parametro son las dimensiones
+        enviaMatriz(A1, 1, 1);
+        enviaMatriz(B1, 1, 3);
+        enviaMatriz(A1, 2, 1);
+        enviaMatriz(B2, 2, 4);
+        enviaMatriz(A2, 3, 2);
+        enviaMatriz(B1, 3, 3);
         /*
          * for (;;) {
          * try (ServerSocket servidor = new ServerSocket(PORT)) {
@@ -159,13 +163,16 @@ public class Practica3 implements InnerIproutesInterface {
 
     }
 
-
-    static void enviaMatriz(double[][] m_aEnviar, int nodo) {
+    static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) {
         try {
             Socket conn = null;
             conn = new Socket(ips[nodo], PORT);
             // DataInputStream in = new DataInputStream(conn.getInputStream());
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+            out.writeInt(nmatriz);
+            
+            
+            out.flush();
             for (int i = 0; i < m_aEnviar.length; i++) {
                 for (int j = 0; j < m_aEnviar[0].length; j++) {
                     out.writeDouble(m_aEnviar[i][j]);
@@ -174,6 +181,43 @@ public class Practica3 implements InnerIproutesInterface {
             conn.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    static void recibeMatriz() {
+        for (;;) {
+            try (ServerSocket servidor = new ServerSocket(PORT)) {
+                Socket conn = servidor.accept();
+                DataInputStream in = new DataInputStream(conn.getInputStream());
+                int nv = in.readInt();
+                System.out.println("Numero de matriz " + String.valueOf(nv));
+                int x =0, y = 0;
+                if(nv == 1){
+                    x=A1.length;
+                    y=A1[0].length;
+                }else if(nv == 2){
+                    x=A2.length;
+                    y=A2[0].length;
+                }else if(nv==3){
+                    x=B1T.length;
+                    y=B1T[0].length;
+                }else if(nv==4){
+                    x=B2T.length;
+                    y=B2T[0].length;
+                }
+
+                for (int i = 0; i < x; i++) {
+                    for (int j = 0; j < y; j++) {
+                        if(nv==1) A1[i][j] = in.readDouble(); 
+                        if(nv==2) A2[i][j] = in.readDouble();
+                        if(nv==3) B1T[i][j] = in.readDouble();
+                        if(nv==4) B2T[i][j] = in.readDouble();
+                    }
+                }
+
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
 
     }
