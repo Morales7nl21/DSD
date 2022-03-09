@@ -78,9 +78,15 @@ public class Practica3 implements InnerIproutesInterface {
     }
 
     static void funcNodo2() {
-
+        recibeMatriz(2);
+        C2 = multRenglon(A1, B2);
+        enviaMatriz(C2, 0, 6);        
     }
-
+    static void funcNodo3() {
+        recibeMatriz(3);
+        C3 = multRenglon(A2, B1);
+        enviaMatriz(C3, 0, 7);        
+    }
     static void imprimeMatriz(double[][] m) {
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
