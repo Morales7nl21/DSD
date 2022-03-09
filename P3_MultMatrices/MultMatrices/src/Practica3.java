@@ -20,8 +20,21 @@ public class Practica3 implements InnerIproutesInterface {
     static void funcNodo0() {
 
         creaMatrices();
-        pruebaFunc();
+        System.out.println("A");
+        imprimeMatriz(A);
+        System.out.println("A1");
+        imprimeMatriz(A1);
+        System.out.println("A2");
+        imprimeMatriz(A2);
+        System.out.println("B");
+        imprimeMatriz(B);
+        System.out.println("B1");
+        imprimeMatriz(B1);
+        System.out.println("B2");
+        imprimeMatriz(B2);
+        System.out.println("B1T");
         transponeMatriz(1);
+        System.out.println("B2T");                
         transponeMatriz(2);
         // Primer valor matriz, segundo el nodo destino para la ip, el tercero el numero
         // de matriz para guardarla en la localidad especifica
@@ -32,19 +45,8 @@ public class Practica3 implements InnerIproutesInterface {
         enviaMatriz(B2, 2, 4);
         enviaMatriz(A2, 3, 2);
         enviaMatriz(B1, 3, 3);
-        /*
-         * for (;;) {
-         * try (ServerSocket servidor = new ServerSocket(PORT)) {
-         * Socket conexion = servidor.accept();
-         * //DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
-         * DataInputStream in = new DataInputStream(conexion.getInputStream());
-         * 
-         * } catch (Exception e) {
-         * // TODO: handle exception
-         * }
-         * 
-         * }
-         */
+
+        
     }
 
     static void pruebaFunc() {
