@@ -16,51 +16,68 @@ public class Practica3 implements InnerIproutesInterface {
         }
     }
 
-   static void funcNodo0() {
-        double[][] A = new double[N][N];
-        double[][] B = new double[N][N];
-        double[][] C1 = new double[N/2][N/2];
-        double[][] C2 = new double[N/2][N/2];
-        double[][] C3 = new double[N/2][N/2];
-        double[][] C4 = new double[N/2][N/2];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                A[i][j] = i + 5 * j;
-                A[i][j] = 5 * i - j;
-            }
-        }
-        double [][] A1 = new double[N/2][N];
-        for (int i = 0; i < N/2; i++) {
-            for (int j = 0; j < N; j++) {
-                A1[i][j] = A[i][j];
-            }
-        }
-        imprimeMatriz(A);        
+    static void funcNodo0() {
+
+        creaMatrices();
+        imprimeMatriz(A);
         System.out.println("----------------------------------------------------------");
         imprimeMatriz(A1);
+        System.out.println("----------------------------------------------------------");
+        imprimeMatriz(A2);
+        System.out.println("----------------------------------------------------------");
+        System.out.println("----------------------------------------------------------");
+        imprimeMatriz(B);
+        System.out.println("----------------------------------------------------------");
+        imprimeMatriz(B1);
+        System.out.println("----------------------------------------------------------");
+        imprimeMatriz(B2);
         /*
-        for (;;) {
-            try (ServerSocket servidor = new ServerSocket(PORT)) {
-                Socket conexion = servidor.accept();
-                //DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
-                DataInputStream in = new DataInputStream(conexion.getInputStream());
-
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
-
-        }
-        */
+         * for (;;) {
+         * try (ServerSocket servidor = new ServerSocket(PORT)) {
+         * Socket conexion = servidor.accept();
+         * //DataOutputStream out = new DataOutputStream(conexion.getOutputStream());
+         * DataInputStream in = new DataInputStream(conexion.getInputStream());
+         * 
+         * } catch (Exception e) {
+         * // TODO: handle exception
+         * }
+         * 
+         * }
+         */
     }
-    static void imprimeMatriz(double [][] m){
+
+    static void imprimeMatriz(double[][] m) {
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
-                System.out.print(m[i][j]+"    ");
-            }   
+                System.out.print(m[i][j] + "\t  ");
+            }
             System.out.println("");
         }
     }
-    static void calcChecksum(){
 
+    static void calcChecksum() {
+
+    }
+
+    static void creaMatrices() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                A[i][j] = i + 5 * j;
+                B[i][j] = 5 * i - j;
+            }
+        }
+        for (int i = 0; i < N ; i++) {
+            for (int j = 0; j < N; j++) {
+                if (i < N / 2) {
+                    A1[i][j] = i + 5 * j;
+                    A2[i][j] = i + N / 2 + 5 * j;
+                }
+                if(j<N/2){
+                    B1[i][j] = 5 * i - j;
+                    B2[i][j] = 5 * i - j - N / 2;
+                }
+
+            }
+        }        
     }
 }
