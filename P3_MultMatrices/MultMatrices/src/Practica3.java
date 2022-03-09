@@ -19,28 +19,15 @@ public class Practica3 implements InnerIproutesInterface {
     static void funcNodo0() {
 
         creaMatrices();
-        imprimeMatriz(A);
-        System.out.println("----------------------------------------------------------");
-        imprimeMatriz(A1);
-        System.out.println("----------------------------------------------------------");
-        imprimeMatriz(A2);
-        System.out.println("----------------------------------------------------------");
-        System.out.println("----------------------------------------------------------");
-        imprimeMatriz(B);
-        System.out.println("----------------Normal------------------------------------");
-        imprimeMatriz(B1);
-
-        System.out.println("----------------------------------------------------------");
-        imprimeMatriz(B2);
-
-        System.out.println();
-        System.out.println("----------------------------------------------------------");
-        // System.out.println("----------------------------------------------------------");
-        // funcMultNormal();
-        System.out.println("-------------Transpuesta-B1-------------------------------");
+        pruebaFunc();
         transponeMatriz(1);
-        System.out.println("-------------Transpuesta-B2-------------------------------");
         transponeMatriz(2);
+        enviaMatriz(A1,1);
+        enviaMatriz(B1,1);
+        enviaMatriz(A1,2);
+        enviaMatriz(B2,2);
+        enviaMatriz(A2,3);
+        enviaMatriz(B1,3);
         /*
          * for (;;) {
          * try (ServerSocket servidor = new ServerSocket(PORT)) {
@@ -54,6 +41,43 @@ public class Practica3 implements InnerIproutesInterface {
          * 
          * }
          */
+    }
+
+    static void pruebaFunc() {
+
+        /*
+         * imprimeMatriz(A);
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * imprimeMatriz(A1);
+         * System.out.println("----------------------A2------------------------------");
+         * imprimeMatriz(A2);
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * imprimeMatriz(B);
+         * System.out.println(
+         * "----------------Normal------------------------------------");
+         * imprimeMatriz(B1);
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * imprimeMatriz(B2);
+         * 
+         * System.out.println();
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * System.out.println(
+         * "----------------------------------------------------------");
+         * //funcMultNormal();
+         * System.out.println(
+         * "-------------Transpuesta-B1-------------------------------");
+         * transponeMatriz(1);
+         * System.out.println(
+         * "-------------Transpuesta-B2-------------------------------");
+         * transponeMatriz(2);
+         */
+
     }
 
     static void funcNodo1() {
@@ -119,16 +143,38 @@ public class Practica3 implements InnerIproutesInterface {
     }
 
     static void transponeMatriz(int opM) {
-        
+
         for (int i = 0; i < B1.length; i++) {
             for (int j = 0; j < B1[i].length; j++) {
-                if(opM==1) B1T[j][i] = B1[i][j];
-                else if(opM==2) B2T[j][i] = B2[i][j];
+                if (opM == 1)
+                    B1T[j][i] = B1[i][j];
+                else if (opM == 2)
+                    B2T[j][i] = B2[i][j];
             }
         }
-        if(opM == 1)
-            imprimeMatriz(B1T);        
-        else if (opM==2)imprimeMatriz(B2T);
-            
+        if (opM == 1)
+            imprimeMatriz(B1T);
+        else if (opM == 2)
+            imprimeMatriz(B2T);
+
+    }
+
+
+    static void enviaMatriz(double[][] m_aEnviar, int nodo) {
+        try {
+            Socket conn = null;
+            conn = new Socket(ips[nodo], PORT);
+            // DataInputStream in = new DataInputStream(conn.getInputStream());
+            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+            for (int i = 0; i < m_aEnviar.length; i++) {
+                for (int j = 0; j < m_aEnviar[0].length; j++) {
+                    out.writeDouble(m_aEnviar[i][j]);
+                }
+            }
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
