@@ -184,7 +184,9 @@ public class Practica3 implements InnerIproutesInterface {
         }
     }
 
-    static void recibeMatriz() {
+    static void recibeMatriz(int nespera) {
+        int cont = 0;
+  
         for (;;) {
             try (ServerSocket servidor = new ServerSocket(PORT)) {
                 Socket conn = servidor.accept();
@@ -214,10 +216,15 @@ public class Practica3 implements InnerIproutesInterface {
                         if(nv==4) B2T[i][j] = in.readDouble();
                     }
                 }
-
+                cont++;
+                conn.close();                
             } catch (Exception e) {
                 // TODO: handle exception
             }
+            if(nespera == 0 && cont == 3)break;
+            if(nespera == 1 && cont == 2)break;
+            if(nespera == 2 && cont == 2)break;
+            if(nespera == 3 && cont == 2)break;
         }
 
     }
