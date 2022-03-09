@@ -40,6 +40,11 @@ public class Practica3 implements InnerIproutesInterface {
         C4 = multRenglon(A2, B2T);
         recibeMatriz(0);
         calcChecksum();
+        if(N==8){
+            imprimeMatriz(A);
+            imprimeMatriz(B);
+            //imprimeMatriz(A);
+        }
     }
 
     static void pruebaFunc() {
@@ -197,6 +202,9 @@ public class Practica3 implements InnerIproutesInterface {
                 }else if(nv==4){
                     x=B2T.length;
                     y=B2T[0].length;
+                }else{
+                    x=C1.length;
+                    y=C1[0].length;
                 }
 
                 for (int i = 0; i < x; i++) {
