@@ -4,6 +4,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Practica3 implements InnerIproutesInterface {
+    static double[][] C1 = new double[N/2][N];
+    static double[][] C2 = new double[N/2][N];
+    static double[][] C3 = new double[N/2][N];
+    static double[][] C4 = new double[N/2][N];
+
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
             int tipoU = Integer.parseInt(args[0]);
@@ -20,6 +25,24 @@ public class Practica3 implements InnerIproutesInterface {
     static void funcNodo0() {
 
         creaMatrices();
+        transponeMatriz(1);
+        transponeMatriz(2);
+        
+        // Primer valor matriz, segundo el nodo destino para la ip, el tercero el numero
+        // de matriz para guardarla en la localidad especifica
+        // A1 = 1, A2 = 2, B1 = 3, B2= 4, el ultimo parametro son las dimensiones
+        enviaMatriz(A1, 1, 1);
+        enviaMatriz(B1T, 1, 3);
+        enviaMatriz(A1, 2, 1);
+        enviaMatriz(B2T, 2, 4);
+        enviaMatriz(A2, 3, 2);
+        enviaMatriz(B1T, 3, 3);
+        C4 = multRenglon(A2, B2T);
+        
+    }
+
+    static void pruebaFunc() {
+        creaMatrices();
         System.out.println("A");
         imprimeMatriz(A);
         System.out.println("A1");
@@ -34,55 +57,11 @@ public class Practica3 implements InnerIproutesInterface {
         imprimeMatriz(B2);
         System.out.println("B1T");
         transponeMatriz(1);
-        System.out.println("B2T");                
+        System.out.println("B2T");
         transponeMatriz(2);
-        // Primer valor matriz, segundo el nodo destino para la ip, el tercero el numero
-        // de matriz para guardarla en la localidad especifica
-        // A1 = 1, A2 = 2, B1 = 3, B2= 4, el ultimo parametro son las dimensiones
-        enviaMatriz(A1, 1, 1);
-        enviaMatriz(B1, 1, 3);
-        enviaMatriz(A1, 2, 1);
-        enviaMatriz(B2, 2, 4);
-        enviaMatriz(A2, 3, 2);
-        enviaMatriz(B1, 3, 3);
-
+        System.out.println("MULT");
+        funcMultNormal();
         
-    }
-
-    static void pruebaFunc() {
-
-        /*
-         * imprimeMatriz(A);
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * imprimeMatriz(A1);
-         * System.out.println("----------------------A2------------------------------");
-         * imprimeMatriz(A2);
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * imprimeMatriz(B);
-         * System.out.println(
-         * "----------------Normal------------------------------------");
-         * imprimeMatriz(B1);
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * imprimeMatriz(B2);
-         * 
-         * System.out.println();
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * System.out.println(
-         * "----------------------------------------------------------");
-         * //funcMultNormal();
-         * System.out.println(
-         * "-------------Transpuesta-B1-------------------------------");
-         * transponeMatriz(1);
-         * System.out.println(
-         * "-------------Transpuesta-B2-------------------------------");
-         * transponeMatriz(2);
-         */
 
     }
 
@@ -97,7 +76,7 @@ public class Practica3 implements InnerIproutesInterface {
     static void imprimeMatriz(double[][] m) {
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
-                System.out.print(m[i][j] + "\t  ");
+                System.out.print(m[i][j] + "\t ");
             }
             System.out.println("");
         }
@@ -228,6 +207,16 @@ public class Practica3 implements InnerIproutesInterface {
             if(nespera == 2 && cont == 2)break;
             if(nespera == 3 && cont == 2)break;
         }
+
+    }
+    static double[][] multRenglon(double[][] m1, double [][] m2){
+        double [][] Ci = new double[m1.length][m1[0].length];
+        for (int i = 0; i < Ci.length; i++) {
+            for (int j = 0; j < Ci.length; j++) {
+                Ci[i][j] = m1[i][j] * m2[i][j];
+            }
+        }
+        return Ci;
 
     }
 }

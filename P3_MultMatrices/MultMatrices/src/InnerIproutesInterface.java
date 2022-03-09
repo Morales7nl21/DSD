@@ -5,10 +5,7 @@ public interface InnerIproutesInterface {
     final int N = 8;
      double[][] A = new double[N][N];
      double[][] B = new double[N][N];    
-     double[][] C1 = new double[N/2][N/2];
-     double[][] C2 = new double[N/2][N/2];
-     double[][] C3 = new double[N/2][N/2];
-     double[][] C4 = new double[N/2][N/2];
+    
      double [][] A1 = new double[N/2][N];
      double [][] A2 = new double[N/2][N];
      double [][] B1 = new double[N][N/2];
