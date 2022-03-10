@@ -1,15 +1,20 @@
 Nombre de maquina 0
 Practica3Nodo0
 Nodo0_practica3
+20.121.1.253
+
 
 Nombre de maquina 1
 Practica3Nodo1
 Nodo1_practica3
+20.25.74.247
 
 Nombre de maquina 2
 Practica3Nodo2
 Nodo2_practica3
+20.127.115.244
 
 Nombre de maquina 3
 Practica3Nodo3
 Nodo3_practica3
+13.68.146.127
