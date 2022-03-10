@@ -3,11 +3,24 @@ import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Practica3 implements InnerIproutesInterface {
+public class Practica3 {
+    final static int N = 8;
     static double[][] C1 = new double[N / 2][N / 2];
     static double[][] C2 = new double[N / 2][N / 2];
     static double[][] C3 = new double[N / 2][N / 2];
     static double[][] C4 = new double[N / 2][N / 2];
+
+    final static int PORT = 50000;
+    final static String[] IPS = { "20.25.58.25", "20.25.74.247", "20.127.115.244", "13.68.145.127" };
+   
+    static double[][] A = new double[N][N];
+    static double[][] B = new double[N][N];
+
+    static double[][] A1 = new double[N / 2][N];
+    static double[][] A2 = new double[N / 2][N];
+    static double[][] B1 = new double[N / 2][N];
+    static double[][] B2 = new double[N / 2][N];
+
 
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
@@ -31,18 +44,18 @@ public class Practica3 implements InnerIproutesInterface {
     static void funcNodo0() {
 
         creaMatrices();
-        System.out.println("Imprimiendo A");
-        imprimeMatriz(A);
-        System.out.println("Imprimiendo B1");
-        imprimeMatriz(B1);
-        System.out.println("Imprimiendo B2");
-        imprimeMatriz(B2);
-        System.out.println("Imprimiendo A1");
-        imprimeMatriz(A1);
-        System.out.println("Imprimiendo A2");
-        imprimeMatriz(A2);
-        System.out.println("Imprimiendo B2T");
+        enviaMatriz(A1, 1, 1);
+        enviaMatriz(B1, 1, 3);
+
+        enviaMatriz(A1, 2, 1);
+        enviaMatriz(B2, 2, 4);
+
+        enviaMatriz(A2, 3, 2);
+        enviaMatriz(B1, 3, 3);
+
         C4 = multRenglon(A2, B2);
+        recibeMatriz(0);
+
         System.out.println("Imprimiendo C4");
         imprimeMatriz(C4);
 
@@ -95,13 +108,7 @@ public class Practica3 implements InnerIproutesInterface {
                 B[i][j] = 5 * i - j;
             }
         }
-        System.out.println("-------------------B");
-        imprimeMatriz(B);
-        System.out.println("-------------------");
-        transponeMatriz();
-        System.out.println("-------------------BT");
-        imprimeMatriz(B);
-        System.out.println("-------------------");
+        transponeMatriz();        
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (i < N / 2) {
@@ -110,12 +117,12 @@ public class Practica3 implements InnerIproutesInterface {
                 }
             }
         }
-        for (int i = 0; i < B.length/2; i++) {
+        for (int i = 0; i < B.length / 2; i++) {
             for (int j = 0; j < B[0].length; j++) {
                 B1[i][j] = B[i][j];
             }
         }
-        for (int i = N/2; i < B.length; i++) {
+        for (int i = N / 2; i < B.length; i++) {
             for (int j = 0; j < B[0].length; j++) {
                 B2[i - N / 2][j] = B[i][j];
             }
@@ -157,7 +164,7 @@ public class Practica3 implements InnerIproutesInterface {
         try {
             Socket conn = null;
             conn = new Socket(IPS[nodo], PORT);
-            //conn = new Socket("localhost", PORTS)
+            // conn = new Socket("localhost", PORTS)
             // DataInputStream in = new DataInputStream(conn.getInputStream());
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
             out.writeInt(nmatriz);

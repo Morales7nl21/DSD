@@ -17,4 +17,4 @@ Nodo2_practica3
 Nombre de maquina 3
 Practica3Nodo3
 Nodo3_practica3
-13.68.146.127
+13.68.145.127
