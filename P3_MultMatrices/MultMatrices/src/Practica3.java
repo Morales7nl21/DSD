@@ -11,8 +11,8 @@ public class Practica3 {
     static double[][] C4 = new double[N / 2][N / 2];
 
     final static int PORT = 50000;
-    final static String[] IPS = { "20.25.58.25", "20.25.74.247", "20.127.115.244", "13.68.145.127" };
-   
+    final static String[] IPS = { "52.224.56.98", "20.25.74.247", "20.127.115.244", "23.101.141.39" };
+
     static double[][] A = new double[N][N];
     static double[][] B = new double[N][N];
 
@@ -20,7 +20,6 @@ public class Practica3 {
     static double[][] A2 = new double[N / 2][N];
     static double[][] B1 = new double[N / 2][N];
     static double[][] B2 = new double[N / 2][N];
-
 
     public static void main(String[] args) throws Exception {
         if (args.length == 1) {
@@ -57,7 +56,7 @@ public class Practica3 {
         recibeMatriz(0);
         calcChecksum();
         System.out.println("Imprimiendo C4");
-        if(N==8){
+        if (N == 8) {
             imprimeMatriz(A);
             imprimeMatriz(B);
             imprimeMatriz(C1);
@@ -65,7 +64,6 @@ public class Practica3 {
             imprimeMatriz(C3);
             imprimeMatriz(C4);
         }
-        
 
     }
 
@@ -99,7 +97,7 @@ public class Practica3 {
     static void calcChecksum() {
         double ckm = 0;
         for (int i = 0; i < N / 2; i++) {
-            for (int j = 0; j < N/2; j++) {
+            for (int j = 0; j < N / 2; j++) {
                 ckm += C1[i][j];
                 ckm += C2[i][j];
                 ckm += C3[i][j];
@@ -116,7 +114,7 @@ public class Practica3 {
                 B[i][j] = 5 * i - j;
             }
         }
-        transponeMatriz();        
+        transponeMatriz();
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (i < N / 2) {
@@ -169,24 +167,37 @@ public class Practica3 {
     }
 
     static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) {
-        try {
-            Socket conn = null;
-            conn = new Socket(IPS[nodo], PORT);
-            // conn = new Socket("localhost", PORTS)
-            // DataInputStream in = new DataInputStream(conn.getInputStream());
-            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-            out.writeInt(nmatriz);
-
-            out.flush();
-            for (int i = 0; i < m_aEnviar.length; i++) {
-                for (int j = 0; j < m_aEnviar[0].length; j++) {
-                    out.writeDouble(m_aEnviar[i][j]);
+        boolean enviado = false;
+        for(;;){
+            try {
+                Socket conn = null;
+                System.out.println("Tratando de enviar a -> " + String.valueOf(IPS[nodo]) + " la matriz numero -> " + String.valueOf(nmatriz);
+                conn = new Socket(IPS[nodo], PORT);
+                if(conn.isConnected()){
+                        // conn = new Socket("localhost", PORTS)
+                    // DataInputStream in = new DataInputStream(conn.getInputStream());
+                    DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+    
+                    out.writeInt(nmatriz);
+                    /*            
+                    for (int i = 0; i < m_aEnviar.length; i++) {
+                        for (int j = 0; j < m_aEnviar[0].length; j++) {
+                            out.writeDouble(m_aEnviar[i][j]);
+                        }
+                    }
+                    */
+                    conn.close();
+                    enviado = true;
                 }
+                            
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            if(enviado) break;
+            else Thread.sleep(1000);
+
         }
+        
     }
 
     static void recibeMatriz(int nespera) {
@@ -195,49 +206,54 @@ public class Practica3 {
         for (;;) {
             try (ServerSocket servidor = new ServerSocket(PORT)) {
                 Socket conn = servidor.accept();
-                DataInputStream in = new DataInputStream(conn.getInputStream());
-                int nv = in.readInt();
-                System.out.println("Numero de matriz " + String.valueOf(nv));
-                int x = 0, y = 0;
-                if (nv == 1) {
-                    x = A1.length;
-                    y = A1[0].length;
-                } else if (nv == 2) {
-                    x = A2.length;
-                    y = A2[0].length;
-                } else if (nv == 3) {
-                    x = B1.length;
-                    y = B1[0].length;
-                } else if (nv == 4) {
-                    x = B2.length;
-                    y = B2[0].length;
-                } else {
-                    x = C1.length;
-                    y = C1[0].length;
+                if (conn.isConnected()) {
+                    DataInputStream in = new DataInputStream(conn.getInputStream());
+                    int nv = in.readInt();
+                    System.out.println("Numero de matriz " + String.valueOf(nv));
+                    int x = 0, y = 0;
+                    if (nv == 1) {
+                        x = A1.length;
+                        y = A1[0].length;
+                    } else if (nv == 2) {
+                        x = A2.length;
+                        y = A2[0].length;
+                    } else if (nv == 3) {
+                        x = B1.length;
+                        y = B1[0].length;
+                    } else if (nv == 4) {
+                        x = B2.length;
+                        y = B2[0].length;
+                    } else {
+                        x = C1.length;
+                        y = C1[0].length;
+                    }
+                    System.out.println("Value of x -> " + String.valueOf(x) + " Value of y -> " + String.valueOf(y));
+                    /*
+                     * for (int i = 0; i < x; i++) {
+                     * for (int j = 0; j < y; j++) {
+                     * if (nv == 1)
+                     * A1[i][j] = in.readDouble();
+                     * if (nv == 2)
+                     * A2[i][j] = in.readDouble();
+                     * if (nv == 3)
+                     * B1[i][j] = in.readDouble();
+                     * if (nv == 4)
+                     * B2[i][j] = in.readDouble();
+                     * if (nv == 5)
+                     * C1[i][j] = in.readDouble();
+                     * if (nv == 6)
+                     * C2[i][j] = in.readDouble();
+                     * if (nv == 7)
+                     * C3[i][j] = in.readDouble();
+                     * if (nv == 8)
+                     * C4[i][j] = in.readDouble();
+                     * }
+                     * }
+                     */
+                    cont++;
+                    conn.close();
                 }
 
-                for (int i = 0; i < x; i++) {
-                    for (int j = 0; j < y; j++) {
-                        if (nv == 1)
-                            A1[i][j] = in.readDouble();
-                        if (nv == 2)
-                            A2[i][j] = in.readDouble();
-                        if (nv == 3)
-                            B1[i][j] = in.readDouble();
-                        if (nv == 4)
-                            B2[i][j] = in.readDouble();
-                        if (nv == 5)
-                            C1[i][j] = in.readDouble();
-                        if (nv == 6)
-                            C2[i][j] = in.readDouble();
-                        if (nv == 7)
-                            C3[i][j] = in.readDouble();
-                        if (nv == 8)
-                            C4[i][j] = in.readDouble();
-                    }
-                }
-                cont++;
-                conn.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
