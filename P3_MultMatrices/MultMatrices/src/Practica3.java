@@ -40,7 +40,7 @@ public class Practica3 {
         }
     }
 
-    static void funcNodo0() {
+    static void funcNodo0() throws InterruptedException {
 
         creaMatrices();
         enviaMatriz(A1, 1, 1);
@@ -67,19 +67,19 @@ public class Practica3 {
 
     }
 
-    static void funcNodo1() {
+    static void funcNodo1() throws InterruptedException {
         recibeMatriz(1);
         C1 = multRenglon(A1, B1);
         enviaMatriz(C1, 0, 5);
     }
 
-    static void funcNodo2() {
+    static void funcNodo2() throws InterruptedException {
         recibeMatriz(2);
         C2 = multRenglon(A1, B2);
         enviaMatriz(C2, 0, 6);
     }
 
-    static void funcNodo3() {
+    static void funcNodo3() throws InterruptedException {
         recibeMatriz(3);
         C3 = multRenglon(A2, B1);
         enviaMatriz(C3, 0, 7);
@@ -166,12 +166,12 @@ public class Practica3 {
 
     }
 
-    static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) {
+    static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) throws InterruptedException {
         boolean enviado = false;
         for(;;){
             try {
                 Socket conn = null;
-                System.out.println("Tratando de enviar a -> " + String.valueOf(IPS[nodo]) + " la matriz numero -> " + String.valueOf(nmatriz);
+                System.out.println("Tratando de enviar a -> " + String.valueOf(IPS[nodo]) + " la matriz numero -> " + String.valueOf(nmatriz));
                 conn = new Socket(IPS[nodo], PORT);
                 if(conn.isConnected()){
                         // conn = new Socket("localhost", PORTS)
