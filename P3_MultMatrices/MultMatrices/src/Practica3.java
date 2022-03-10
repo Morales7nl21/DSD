@@ -287,15 +287,17 @@ public class Practica3 {
         recibeMatriz(0);
         enviaMatriz(A2, B1, 2, 3, 3);
         recibeMatriz(0);
+        C4 = multRenglon(A2, B2);
         calcChecksum();
-        System.out.println("Imprimiendo C1");
-        imprimeMatriz(C1);
-        System.out.println("Imprimiendo C2");
-        imprimeMatriz(C2);
-        System.out.println("Imprimiendo C3");
-        imprimeMatriz(C3);
-        System.out.println("Imprimiendo C4");
-        imprimeMatriz(C4);    
+
+        if(N==8){
+            System.out.println("-------Imprimiendo matriz A-------");
+            imprimeMatriz(A);
+            System.out.println("-------Imprimiendo matriz B-------");
+            imprimeMatriz(B);
+            System.out.println("-------Imprimiendo matriz C-------");
+            imprimeMatrizC();
+        }
     }
 
     static void funcNodo1() throws InterruptedException {
@@ -320,6 +322,21 @@ public class Practica3 {
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[0].length; j++) {
                 System.out.print(m[i][j] + "\t ");
+            }
+            System.out.println("");
+        }
+    }
+    static void imprimeMatrizC(){
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if(i<N/2 && j<N/2)
+                    System.out.print(C1[i][j] + "\t ");
+                else if(i<N/2 && j>=N/2)
+                    System.out.print(C2[i][j-(N/2)] + "\t ");
+                else if(i>=N/2 && j<N/2)
+                    System.out.print(C3[i-(N/2)][j] + "\t ");
+                else if(i>=N/2 && j >= N/2)
+                    System.out.print(C4[i-(N/2)][j-(N/2)] + "\t ");
             }
             System.out.println("");
         }
