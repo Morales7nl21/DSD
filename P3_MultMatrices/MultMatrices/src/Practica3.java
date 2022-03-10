@@ -68,10 +68,10 @@ public class Practica3 {
                             Socket conn = null;
                             System.out.println("Tratando de enviar a -> " + String.valueOf(ip) + " la matriz numero -> "
                                     + String.valueOf(nmatriz));
-                                    System.out.println("Tratando de enviar a -> " + String.valueOf(ip) + " la matriz numero -> "
+                            System.out.println("Tratando de enviar a -> " + String.valueOf(ip) + " la matriz numero -> "
                                     + String.valueOf(nmatriz2));
                             conn = new Socket(ip, PORT);
-                            
+
                             if (conn.isConnected()) {
                                 DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                                 out.writeInt(nmatriz);
@@ -87,16 +87,15 @@ public class Practica3 {
                                 conn.close();
 
                             }
-                            
-                        }
-                        else if(numMatricesAEnviar==1){
+
+                        } else if (numMatricesAEnviar == 1) {
                             Socket conn = null;
                             System.out.println("Tratando de enviar a -> " + String.valueOf(ip) + " la matriz numero -> "
-                                    + String.valueOf(nmatriz));                                    
-                            conn = new Socket(ip, PORT);                            
+                                    + String.valueOf(nmatriz));
+                            conn = new Socket(ip, PORT);
                             if (conn.isConnected()) {
                                 DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-                                out.writeInt(nmatriz);                                
+                                out.writeInt(nmatriz);
                                 /*
                                  * for (int i = 0; i < m_aEnviar.length; i++) {
                                  * for (int j = 0; j < m_aEnviar[0].length; j++) {
@@ -107,15 +106,62 @@ public class Practica3 {
                                 env = true;
                                 conn.close();
 
-                            }                        
-                        }    
-                        if (env == true)break;                                           
+                            }
+                        }
+                        if (env == true)
+                            break;
                     }
 
                 } else if (tipoSuC == 2) {// Reciviendo
                     boolean recv = false;
                     if (nespera == 0) {
-
+                        for(;;){
+                            try (ServerSocket servidor = new ServerSocket(PORT)) {
+                                Socket conn = servidor.accept();
+                                if (conn.isConnected()) {
+                                    DataInputStream in = new DataInputStream(conn.getInputStream());
+                                    int nv = in.readInt();
+                                    System.out.println("Numero de matriz  1" + String.valueOf(nv));
+                                    int x = 0, y = 0;
+                                    if (nv >= 1 && nv <= 4) {
+                                        x = A1.length;
+                                        y = A1[0].length;
+                                    } else {
+                                        x = C1.length;
+                                        y = C1[0].length;
+                                    }
+    
+                                    System.out.println("Value of x -> " + String.valueOf(x) + " Value of y -> "
+                                            + String.valueOf(y));
+                                    /*
+                                     * for (int i = 0; i < x; i++) {
+                                     * for (int j = 0; j < y; j++) {
+                                     * if (nv == 1)
+                                     * A1[i][j] = in.readDouble();
+                                     * if (nv == 2)
+                                     * A2[i][j] = in.readDouble();
+                                     * if (nv == 3)
+                                     * B1[i][j] = in.readDouble();
+                                     * if (nv == 4)
+                                     * B2[i][j] = in.readDouble();
+                                     * if (nv == 5)
+                                     * C1[i][j] = in.readDouble();
+                                     * if (nv == 6)
+                                     * C2[i][j] = in.readDouble();
+                                     * if (nv == 7)
+                                     * C3[i][j] = in.readDouble();
+                                     * if (nv == 8)
+                                     * C4[i][j] = in.readDouble();
+                                     * }
+                                     * }
+                                     */
+                                    recv = true;
+                                    conn.close();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }//end ;;                        
                     } else {
                         for (;;) {
                             try (ServerSocket servidor = new ServerSocket(PORT)) {
@@ -175,7 +221,8 @@ public class Practica3 {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            if(recv) break;
+                            if (recv)
+                                break;
                         } // ;;
 
                     } // End else
@@ -215,6 +262,7 @@ public class Practica3 {
         creaMatrices();
         // matrices, modo de envio 1,
         enviaMatriz(A1, B1, 1, 3, 1);
+        recibeMatriz(0);
 
         /*
          * enviaMatriz(A1, 2, 1);
@@ -239,7 +287,6 @@ public class Practica3 {
     }
 
     static void funcNodo1() throws InterruptedException {
-        recibeMatriz(1);
         recibeMatriz(1);
         C1 = multRenglon(A1, B1);
         enviaMatriz(C1, null, 5, 5, 0);
@@ -323,11 +370,10 @@ public class Practica3 {
                 }
             }
         }
-        imprimeMatriz(C);
+        //imprimeMatriz(C);
     }
 
     static void transponeMatriz() {
-
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < i; j++) {
                 double x = B[i][j];
@@ -335,7 +381,6 @@ public class Practica3 {
                 B[j][i] = x;
             }
         }
-
     }
 
     static void enviaMatriz(double[][] m1_aEnviar, double[][] m2_aEnviar, int nmatriz1, int nmatriz2, int nodo)
@@ -347,6 +392,10 @@ public class Practica3 {
                 Worker envia = new Worker(IPS[nodo], 1, 2, nmatriz1, nmatriz2, m1_aEnviar, m2_aEnviar);
                 envia.start();
                 envia.join();
+            } else {
+                Worker envia = new Worker(IPS[nodo], 1, 1, nmatriz1, m1_aEnviar);
+                envia.start();
+                envia.join();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -356,18 +405,10 @@ public class Practica3 {
 
     static void recibeMatriz(int nespera) throws InterruptedException {
 
-        for (;;) {
-            try {
-                Worker matriz_a_esperar = new Worker(nespera, 2);
-                matriz_a_esperar.start();
-                matriz_a_esperar.join();
-                Thread.sleep(1000);
-                break;
-            } catch (Exception e) {
-                e.printStackTrace();
-                Thread.sleep(100);
-            }
-        }
+        Worker matriz_a_esperar = new Worker(nespera, 2);
+        matriz_a_esperar.start();
+        matriz_a_esperar.join();
+        Thread.sleep(100);
 
     }
 
