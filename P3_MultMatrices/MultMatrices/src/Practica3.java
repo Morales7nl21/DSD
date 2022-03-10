@@ -32,15 +32,21 @@ public class Practica3 implements InnerIproutesInterface {
 
         //pruebaFunc();
         creaMatrices();
-        System.out.println("Imprimiendo B1T");
-        imprimeMatriz(B1);
+        System.out.println("Imprimiendo A");
+        imprimeMatriz(A);
         
-        System.out.println("Imprimiendo B2T");
+        System.out.println("Imprimiendo B1");
+        imprimeMatriz(B1);                
+        System.out.println("Imprimiendo B2");
         imprimeMatriz(B2);
+        System.out.println("Imprimiendo A1");
+        imprimeMatriz(A1);
         System.out.println("Imprimiendo A2");
         imprimeMatriz(A2);
-
-        C4 = multRenglon(A2, B2);
+        System.out.println("Imprimiendo B2T");
+        transponeMatriz(4);
+        imprimeMatriz(B2T);
+        C4 = multRenglon(A2, B2T);
         System.out.println("Imprimiendo C4");
         imprimeMatriz(C4);
         /*
@@ -84,9 +90,9 @@ public class Practica3 implements InnerIproutesInterface {
         System.out.println("B2");
         imprimeMatriz(B2);
         System.out.println("B1T");
-        transponeMatriz();
+        transponeMatriz(0);
         System.out.println("B2T");
-        transponeMatriz();
+        transponeMatriz(0);
         System.out.println("MULT");
         funcMultNormal();
 
@@ -143,7 +149,7 @@ public class Practica3 implements InnerIproutesInterface {
         imprimeMatriz(B);
         System.out.println("-------------------");
         
-        transponeMatriz();
+        transponeMatriz(0);
         System.out.println("-------------------BT");
         imprimeMatriz(B);
         System.out.println("-------------------");
@@ -187,15 +193,34 @@ public class Practica3 implements InnerIproutesInterface {
         imprimeMatriz(C);
     }
 
-    static void transponeMatriz() {
-
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < i; j++) {
-                double x = B[i][j];
-                B[i][j] = B[j][i];
-                B[j][i] = x;
+    static void transponeMatriz(int op) {
+        if(op == 0){
+            for (int i = 0; i < N; i++) {
+                for (int j = 0; j < i; j++) {
+                    double x = B[i][j];
+                    B[i][j] = B[j][i];
+                    B[j][i] = x;
+                }
+            }
+        }else{
+            int x=0,y=0;
+            
+            if (op == 3) {
+                x = B1.length;
+                y = B1[0].length;
+            } else if (op == 4) {
+                x = B2.length;
+                y = B2[0].length;
+            }
+            System.out.println(x);
+            System.out.println(y);
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {                          
+                   B2T[j][i] = B2[i][j];        
+                }
             }
         }
+        
     }
 
     static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) {
@@ -284,13 +309,14 @@ public class Practica3 implements InnerIproutesInterface {
 
     static double[][] multRenglon(double[][] m1, double[][] m2) {
         double[][] Ci = new double[N/2][N/2];
-        for (int i = 0; i < N/2; i++) {
-            for (int j = 0; j < N/2; j++) {
-                for (int k = 0; k < N/2; k++) {
+        for (int i = 0; i < (N/2); i++) {
+            for (int j = 0; j < (N/2); j++) {
+                for (int k = 0; k < N; k++) {
                     Ci[i][j] += m1[i][k] * m2[j][k];
                 }
             }
         }
+
         return Ci;
 
     }

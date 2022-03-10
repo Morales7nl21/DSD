@@ -10,7 +10,7 @@ public interface InnerIproutesInterface {
      double [][] A2 = new double[N/2][N];
      double [][] B1 = new double[N][N/2];
      double [][] B2 = new double[N][N/2];
-     //double [][] B1T = new double[N/2][N];
-     //double [][] B2T = new double[N/2][N];
+     double [][] B1T = new double[N/2][N];
+     double [][] B2T = new double[N/2][N];
 
 }
