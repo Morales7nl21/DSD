@@ -55,9 +55,17 @@ public class Practica3 {
 
         C4 = multRenglon(A2, B2);
         recibeMatriz(0);
-
+        calcChecksum();
         System.out.println("Imprimiendo C4");
-        imprimeMatriz(C4);
+        if(N==8){
+            imprimeMatriz(A);
+            imprimeMatriz(B);
+            imprimeMatriz(C1);
+            imprimeMatriz(C2);
+            imprimeMatriz(C3);
+            imprimeMatriz(C4);
+        }
+        
 
     }
 
@@ -91,7 +99,7 @@ public class Practica3 {
     static void calcChecksum() {
         double ckm = 0;
         for (int i = 0; i < N / 2; i++) {
-            for (int j = 0; j < N; j++) {
+            for (int j = 0; j < N/2; j++) {
                 ckm += C1[i][j];
                 ckm += C2[i][j];
                 ckm += C3[i][j];
