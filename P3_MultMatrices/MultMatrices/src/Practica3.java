@@ -42,7 +42,6 @@ public class Practica3 {
             this.m1_aEnviar = m1_aEnviar;
             this.numMatricesAEnviar = numMatricesAEnviar;
         }
-
         Worker(String ip, int tipoSuC, int numMatricesAEnviar, int nmatriz, double[][] m_aEnviar) {
             this.ip = ip;
             this.tipoSuC = tipoSuC;
@@ -50,14 +49,12 @@ public class Practica3 {
             this.nmatriz = nmatriz;
             this.numMatricesAEnviar = numMatricesAEnviar;
         }
-
         Worker(int nespera, int tipoSuC) {
             this.nespera = nespera;
             this.tipoSuC = tipoSuC;
         }
 
         public void run() {
-
             try {
                 // Enviar
                 if (tipoSuC == 1) {
@@ -225,9 +222,7 @@ public class Practica3 {
                             if (recv)
                                 break;
                         } // ;;
-
                     } // End else
-
                 } else { // en cond de espera
                     System.out.println("Algo salio mal");
                 }
@@ -261,30 +256,22 @@ public class Practica3 {
     static void funcNodo0() throws InterruptedException {
 
         creaMatrices();
-        // matrices, modo de envio 1,
+        // matrices, modo de envio 1, num matriz 1, num matriz 2, nodo dest
         enviaMatriz(A1, B1, 1, 3, 1);
         recibeMatriz(0);
-
-        /*
-         * enviaMatriz(A1, 2, 1);
-         * enviaMatriz(B2, 2, 4);
-         * 
-         * enviaMatriz(A2, 3, 2);
-         * enviaMatriz(B1, 3, 3);
-         * 
-         * C4 = multRenglon(A2, B2);
-         * recibeMatriz(0);
-         * calcChecksum();
-         * System.out.println("Imprimiendo C4");
-         * if (N == 8) {
-         * imprimeMatriz(A);
-         * imprimeMatriz(B);
-         * imprimeMatriz(C1);
-         * imprimeMatriz(C2);
-         * imprimeMatriz(C3);
-         * imprimeMatriz(C4);
-         * }
-         */
+        enviaMatriz(A1, B2, 1, 4, 2);
+        recibeMatriz(0);
+        enviaMatriz(A2, B1, 2, 3, 3);
+        recibeMatriz(0);
+        calcChecksum();
+        System.out.println("Imprimiendo C1");
+        imprimeMatriz(C1);
+        System.out.println("Imprimiendo C2");
+        imprimeMatriz(C2);
+        System.out.println("Imprimiendo C3");
+        imprimeMatriz(C3);
+        System.out.println("Imprimiendo C4");
+        imprimeMatriz(C4);    
     }
 
     static void funcNodo1() throws InterruptedException {
@@ -426,10 +413,7 @@ public class Practica3 {
                     Ci[i][j] += m1[i][k] * m2[j][k];
                 }
             }
-
         }
-
         return Ci;
-
     }
 }
