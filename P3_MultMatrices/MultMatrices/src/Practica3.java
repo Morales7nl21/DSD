@@ -161,6 +161,7 @@ public class Practica3 {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
+                            if(recv) break;
                         }//end ;;                        
                     } else {
                         for (;;) {
