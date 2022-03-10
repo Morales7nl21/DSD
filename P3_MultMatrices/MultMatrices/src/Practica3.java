@@ -53,7 +53,7 @@ public class Practica3 {
             this.nespera = nespera;
             this.tipoSuC = tipoSuC;
         }
-
+    
         public void run() {
             try {
                 // Enviar
