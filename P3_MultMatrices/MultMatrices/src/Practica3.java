@@ -173,11 +173,8 @@ public class Practica3 {
                 Socket conn = null;
                 System.out.println("Tratando de enviar a -> " + String.valueOf(IPS[nodo]) + " la matriz numero -> " + String.valueOf(nmatriz));
                 conn = new Socket(IPS[nodo], PORT);
-                if(conn.isConnected()){
-                        // conn = new Socket("localhost", PORTS)
-                    // DataInputStream in = new DataInputStream(conn.getInputStream());
-                    DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-    
+                if(conn.isConnected()){                    
+                    DataOutputStream out = new DataOutputStream(conn.getOutputStream());    
                     out.writeInt(nmatriz);
                     /*            
                     for (int i = 0; i < m_aEnviar.length; i++) {
@@ -194,13 +191,13 @@ public class Practica3 {
                 e.printStackTrace();
             }
             if(enviado) break;
-            else Thread.sleep(1000);
+            else Thread.sleep(100);
 
         }
         
     }
 
-    static void recibeMatriz(int nespera) {
+    static void recibeMatriz(int nespera) throws InterruptedException {
         int cont = 0;
 
         for (;;) {
@@ -265,6 +262,7 @@ public class Practica3 {
                 break;
             if (nespera == 3 && cont == 2)
                 break;
+            Thread.sleep(100);
         }
 
     }
