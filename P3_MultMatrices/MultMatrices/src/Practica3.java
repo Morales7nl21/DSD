@@ -73,13 +73,17 @@ public class Practica3 {
                                 DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                                 out.writeInt(nmatriz);
                                 out.writeInt(nmatriz2);
-                                /*
-                                 * for (int i = 0; i < m_aEnviar.length; i++) {
-                                 * for (int j = 0; j < m_aEnviar[0].length; j++) {
-                                 * out.writeDouble(m_aEnviar[i][j]);
-                                 * }
-                                 * }
-                                 */
+                                
+                                for (int i = 0; i < m1_aEnviar.length; i++) {
+                                    for (int j = 0; j < m1_aEnviar[0].length; j++) {
+                                        out.writeDouble(m1_aEnviar[i][j]);
+                                    }
+                                }
+                                for (int i = 0; i < m2_aEnviar.length; i++) {
+                                    for (int j = 0; j < m2_aEnviar[0].length; j++) {
+                                        out.writeDouble(m2_aEnviar[i][j]);
+                                    }
+                                }                                
                                 env = true;
                                 conn.close();
 
@@ -93,13 +97,13 @@ public class Practica3 {
                             if (conn.isConnected()) {
                                 DataOutputStream out = new DataOutputStream(conn.getOutputStream());
                                 out.writeInt(nmatriz);
-                                /*
-                                 * for (int i = 0; i < m_aEnviar.length; i++) {
-                                 * for (int j = 0; j < m_aEnviar[0].length; j++) {
-                                 * out.writeDouble(m_aEnviar[i][j]);
-                                 * }
-                                 * }
-                                 */
+                                
+                                for (int i = 0; i < m_aEnviar.length; i++) {
+                                    for (int j = 0; j < m_aEnviar[0].length; j++) {
+                                        out.writeDouble(m_aEnviar[i][j]);
+                                    }
+                                }
+                                
                                 env = true;
                                 conn.close();
 
@@ -130,28 +134,28 @@ public class Practica3 {
     
                                     System.out.println("Value of x -> " + String.valueOf(x) + " Value of y -> "
                                             + String.valueOf(y));
-                                    /*
-                                     * for (int i = 0; i < x; i++) {
-                                     * for (int j = 0; j < y; j++) {
-                                     * if (nv == 1)
-                                     * A1[i][j] = in.readDouble();
-                                     * if (nv == 2)
-                                     * A2[i][j] = in.readDouble();
-                                     * if (nv == 3)
-                                     * B1[i][j] = in.readDouble();
-                                     * if (nv == 4)
-                                     * B2[i][j] = in.readDouble();
-                                     * if (nv == 5)
-                                     * C1[i][j] = in.readDouble();
-                                     * if (nv == 6)
-                                     * C2[i][j] = in.readDouble();
-                                     * if (nv == 7)
-                                     * C3[i][j] = in.readDouble();
-                                     * if (nv == 8)
-                                     * C4[i][j] = in.readDouble();
-                                     * }
-                                     * }
-                                     */
+                                    
+                                     for (int i = 0; i < x; i++) {
+                                        for (int j = 0; j < y; j++) {
+                                            if (nv == 1)
+                                            A1[i][j] = in.readDouble();
+                                            if (nv == 2)
+                                            A2[i][j] = in.readDouble();
+                                            if (nv == 3)
+                                            B1[i][j] = in.readDouble();
+                                            if (nv == 4)
+                                            B2[i][j] = in.readDouble();
+                                            if (nv == 5)
+                                            C1[i][j] = in.readDouble();
+                                            if (nv == 6)
+                                            C2[i][j] = in.readDouble();
+                                            if (nv == 7)
+                                            C3[i][j] = in.readDouble();
+                                            if (nv == 8)
+                                            C4[i][j] = in.readDouble();
+                                        }
+                                     }
+                                    
                                     recv = true;
                                     conn.close();
                                 }
@@ -191,28 +195,48 @@ public class Practica3 {
                                             + String.valueOf(y));
                                     System.out.println("Value of x1 -> " + String.valueOf(x1) + " Value of y1 -> "
                                             + String.valueOf(y1));
-                                    /*
-                                     * for (int i = 0; i < x; i++) {
-                                     * for (int j = 0; j < y; j++) {
-                                     * if (nv == 1)
-                                     * A1[i][j] = in.readDouble();
-                                     * if (nv == 2)
-                                     * A2[i][j] = in.readDouble();
-                                     * if (nv == 3)
-                                     * B1[i][j] = in.readDouble();
-                                     * if (nv == 4)
-                                     * B2[i][j] = in.readDouble();
-                                     * if (nv == 5)
-                                     * C1[i][j] = in.readDouble();
-                                     * if (nv == 6)
-                                     * C2[i][j] = in.readDouble();
-                                     * if (nv == 7)
-                                     * C3[i][j] = in.readDouble();
-                                     * if (nv == 8)
-                                     * C4[i][j] = in.readDouble();
-                                     * }
-                                     * }
-                                     */
+                                    
+                                     for (int i = 0; i < x; i++) {
+                                        for (int j = 0; j < y; j++) {
+                                            if (nv == 1)
+                                            A1[i][j] = in.readDouble();
+                                            if (nv == 2)
+                                            A2[i][j] = in.readDouble();
+                                            if (nv == 3)
+                                            B1[i][j] = in.readDouble();
+                                            if (nv == 4)
+                                            B2[i][j] = in.readDouble();
+                                            if (nv == 5)
+                                            C1[i][j] = in.readDouble();
+                                            if (nv == 6)
+                                            C2[i][j] = in.readDouble();
+                                            if (nv == 7)
+                                            C3[i][j] = in.readDouble();
+                                            if (nv == 8)
+                                            C4[i][j] = in.readDouble();
+                                        }
+                                     }
+                                     for (int i = 0; i < x1; i++) {
+                                        for (int j = 0; j < y1; j++) {
+                                            if (nv2 == 1)
+                                            A1[i][j] = in.readDouble();
+                                            if (nv2 == 2)
+                                            A2[i][j] = in.readDouble();
+                                            if (nv2 == 3)
+                                            B1[i][j] = in.readDouble();
+                                            if (nv2 == 4)
+                                            B2[i][j] = in.readDouble();
+                                            if (nv2 == 5)
+                                            C1[i][j] = in.readDouble();
+                                            if (nv2 == 6)
+                                            C2[i][j] = in.readDouble();
+                                            if (nv2 == 7)
+                                            C3[i][j] = in.readDouble();
+                                            if (nv2 == 8)
+                                            C4[i][j] = in.readDouble();
+                                        }
+                                     }
+                                    
                                     recv = true;
                                     conn.close();
                                 }
