@@ -1,6 +1,6 @@
 public interface InnerIproutesInterface {
     final int PORT = 50000;
-    final String[] IPS= {"20.121.1.253","20.25.74.247","20.127.115.244","13.68.146.127"}; 
+    final String[] IPS= {"20.25.58.25","20.25.74.247","20.127.115.244","13.68.146.127"}; 
     //int [] PORTS= {50001,50002,50003,5004}; 
     final int N = 8;
      static double[][] A = new double[N][N];

@@ -1,7 +1,7 @@
 Nombre de maquina 0
 Practica3Nodo0
 Nodo0_practica3
-20.121.1.253
+20.25.58.25
 
 
 Nombre de maquina 1
