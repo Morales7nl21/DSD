@@ -57,7 +57,8 @@ public class Practica3 {
                             }
                             */
                             env = true;
-                            conn.close();                       
+                            conn.close(); 
+
                         }
                         if(env == true) break;
                     }
@@ -65,7 +66,8 @@ public class Practica3 {
                 }else if(tipoSuC == 2){//Reciviendo   
                     boolean recv = false;
                     for(;;){
-                        try (ServerSocket servidor = new ServerSocket(PORT)) {
+                        try{
+                            ServerSocket servidor = new ServerSocket(PORT);
                             Socket conn = servidor.accept();
                             if (conn.isConnected()) {
                                 DataInputStream in = new DataInputStream(conn.getInputStream());
@@ -158,29 +160,31 @@ public class Practica3 {
             creaMatrices();
             enviaMatriz(A1, 1, 1);
             enviaMatriz(B1, 1, 3);
+            
             /*
-             * enviaMatriz(A1, 2, 1);
-             * enviaMatriz(B2, 2, 4);
-             * 
-             * enviaMatriz(A2, 3, 2);
-             * enviaMatriz(B1, 3, 3);
-             * 
-             * C4 = multRenglon(A2, B2);
-             * recibeMatriz(0);
-             * calcChecksum();
-             * System.out.println("Imprimiendo C4");
-             * if (N == 8) {
-             * imprimeMatriz(A);
-             * imprimeMatriz(B);
-             * imprimeMatriz(C1);
-             * imprimeMatriz(C2);
-             * imprimeMatriz(C3);
-             * imprimeMatriz(C4);
-             * }
-             */
+            enviaMatriz(A1, 2, 1);
+            enviaMatriz(B2, 2, 4);
+            
+            enviaMatriz(A2, 3, 2);
+            enviaMatriz(B1, 3, 3);
+            
+            C4 = multRenglon(A2, B2);
+            recibeMatriz(0);
+            calcChecksum();
+            System.out.println("Imprimiendo C4");
+            if (N == 8) {
+            imprimeMatriz(A);
+            imprimeMatriz(B);
+            imprimeMatriz(C1);
+            imprimeMatriz(C2);
+            imprimeMatriz(C3);
+            imprimeMatriz(C4);
+            }
+            */
         }
 
         static void funcNodo1() throws InterruptedException {
+            recibeMatriz(1);
             recibeMatriz(1);
             C1 = multRenglon(A1, B1);
             enviaMatriz(C1, 0, 5);
@@ -286,29 +290,26 @@ public class Practica3 {
                 Worker envia = new Worker(IPS[nodo], 1, nmatriz, m_aEnviar);
                 envia.start();
                 envia.join();   
+                
                 break;             
             }
             catch (Exception e) {
                 e.printStackTrace();
-            }           
+            }  
+            Thread.sleep(100);         
         }
 
     }
 
     static void recibeMatriz(int nespera) throws InterruptedException {
         
-        int mae = 0;
+        
         for (;;) {
-            try {
-                if(nespera == 0)   mae = 3;
-                else mae = 2;
-                Worker[] matrices_a_esperar = new Worker[mae];
-                for (int i = 0; i < mae; i++) {
-                    matrices_a_esperar[i] = new Worker(nespera,2);
-                    matrices_a_esperar[i].start();
-                    matrices_a_esperar[i].join();
-                } 
-                break;
+            try {                   
+                    Worker matriz_a_esperar = new Worker(nespera,2);
+                    matriz_a_esperar.start();
+                    matriz_a_esperar.join();
+                    break;                
             } catch (Exception e) {
                 e.printStackTrace();
                 Thread.sleep(100);
