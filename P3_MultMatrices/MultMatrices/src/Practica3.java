@@ -45,13 +45,13 @@ public class Practica3 {
         creaMatrices();
         enviaMatriz(A1, 1, 1);
         enviaMatriz(B1, 1, 3);
-
+        /*
         enviaMatriz(A1, 2, 1);
         enviaMatriz(B2, 2, 4);
 
         enviaMatriz(A2, 3, 2);
         enviaMatriz(B1, 3, 3);
-
+        
         C4 = multRenglon(A2, B2);
         recibeMatriz(0);
         calcChecksum();
@@ -64,7 +64,7 @@ public class Practica3 {
             imprimeMatriz(C3);
             imprimeMatriz(C4);
         }
-
+        */
     }
 
     static void funcNodo1() throws InterruptedException {
