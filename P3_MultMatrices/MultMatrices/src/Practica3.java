@@ -156,7 +156,8 @@ public class Practica3 implements InnerIproutesInterface {
     static void enviaMatriz(double[][] m_aEnviar, int nodo, int nmatriz) {
         try {
             Socket conn = null;
-            conn = new Socket(ips[nodo], PORT);
+            conn = new Socket(IPS[nodo], PORT);
+            //conn = new Socket("localhost", PORTS)
             // DataInputStream in = new DataInputStream(conn.getInputStream());
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
             out.writeInt(nmatriz);
