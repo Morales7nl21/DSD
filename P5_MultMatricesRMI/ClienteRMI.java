@@ -106,20 +106,20 @@ public class ClienteRMI {
         double[][] C3 = r1.multiplica_matrices(A1, B3, N);
         double[][] C4 = r1.multiplica_matrices(A1, B4, N);
         // Nodo 2
-        double[][] C5 = r1.multiplica_matrices(A2, B1, N);
-        double[][] C6 = r1.multiplica_matrices(A2, B2, N);
-        double[][] C7 = r1.multiplica_matrices(A2, B3, N);
-        double[][] C8 = r1.multiplica_matrices(A2, B4, N);
+        double[][] C5 = r2.multiplica_matrices(A2, B1, N);
+        double[][] C6 = r2.multiplica_matrices(A2, B2, N);
+        double[][] C7 = r2.multiplica_matrices(A2, B3, N);
+        double[][] C8 = r2.multiplica_matrices(A2, B4, N);
         // Nodo 3
-        double[][] C9 = r1.multiplica_matrices(A3, B1, N);
-        double[][] C10 = r1.multiplica_matrices(A3, B2, N);
-        double[][] C11 = r1.multiplica_matrices(A3, B3, N);
-        double[][] C12 = r1.multiplica_matrices(A3, B4, N);
+        double[][] C9 = r3.multiplica_matrices(A3, B1, N);
+        double[][] C10 = r3.multiplica_matrices(A3, B2, N);
+        double[][] C11 = r3.multiplica_matrices(A3, B3, N);
+        double[][] C12 = r3.multiplica_matrices(A3, B4, N);
         // Nodo 4
-        double[][] C13 = r1.multiplica_matrices(A4, B1, N);
-        double[][] C14 = r1.multiplica_matrices(A4, B2, N);
-        double[][] C15 = r1.multiplica_matrices(A4, B3, N);
-        double[][] C16 = r1.multiplica_matrices(A4, B4, N);
+        double[][] C13 = r4.multiplica_matrices(A4, B1, N);
+        double[][] C14 = r4.multiplica_matrices(A4, B2, N);
+        double[][] C15 = r4.multiplica_matrices(A4, B3, N);
+        double[][] C16 = r4.multiplica_matrices(A4, B4, N);
 
         // Acomoda las matrices
         // Fila 1
