@@ -7,14 +7,33 @@ public class ClienteRMI {
     static double[][] B = new double[N][N];
     static double[][] C = new double[N][N];
 
+    static double[][] C1 = new double[2][2];
+    static double[][] C2 = new double[2][2];
+    static double[][] C3 = new double[2][2];
+    static double[][] C4 = new double[2][2];
+    static double[][] C5 = new double[2][2];
+    static double[][] C6 = new double[2][2];
+    static double[][] C7 = new double[2][2];
+    static double[][] C8 = new double[2][2];
+    static double[][] C9 = new double[2][2];
+    static double[][] C10 = new double[2][2];
+    static double[][] C11 = new double[2][2];
+    static double[][] C12 = new double[2][2];
+    static double[][] C13 = new double[2][2];
+    static double[][] C14 = new double[2][2];
+    static double[][] C15 = new double[2][2];
+    static double[][] C16 = new double[2][2];
+
     class ThreadMatrices extends Thread {
         String remoteURL;
         double[][] mA;
         double[][] mB;
+        int cont;
 
-        public ThreadMatrices(String remoteURL, double[][] ma, double[][] mb) {
-            this.ma = ma;
-            this.mb = mb;
+        public ThreadMatrices(String remoteURL, double[][] ma, double[][] mb, int cont) {
+            this.cont = cont;
+            this.mA = ma;
+            this.mB = mb;
             this.remoteURL = remoteURL;
         }
 
@@ -23,7 +42,39 @@ public class ClienteRMI {
             try {
 
                 InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
-                double[][] Ci = r.multiplica_matrices(ma, mb, N);
+
+                if (cont == 1)
+                    C1 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 2)
+                    C2 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 3)
+                    C3 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 4)
+                    C4 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 5)
+                    C5 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 6)
+                    C6 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 7)
+                    C7 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 8)
+                    C8 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 9)
+                    C9 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 10)
+                    C10 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 11)
+                    C11 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 12)
+                    C12 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 13)
+                    C13 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 14)
+                    C14 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 15)
+                    C15 = r.multiplica_matrices(mA, mB, N);
+                else if (cont == 16)
+                    C16 = r.multiplica_matrices(mA, mB, N);
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -134,31 +185,69 @@ public class ClienteRMI {
         // Multiplica matrices
         // Nodo 1
         Thread[] r1T = new Thread[4];
-        double[][] C1 = r1.multiplica_matrices(A1, B1, N);
-        double[][] C2 = r1.multiplica_matrices(A1, B2, N);
-        double[][] C3 = r1.multiplica_matrices(A1, B3, N);
-        double[][] C4 = r1.multiplica_matrices(A1, B4, N);
+        r1T[0] = new ThreadMatrices(url1, A1, B1, N, 1);
+        r1T[1] = new ThreadMatrices(url1, A1, B2, N, 2);
+        r1T[1] = new ThreadMatrices(url1, A1, B3, N, 3);
+        r1T[2] = new ThreadMatrices(url1, A1, B4, N, 4);
+
+        /*
+         * double[][] C1 = r1.multiplica_matrices(A1, B1, N);
+         * double[][] C2 = r1.multiplica_matrices(A1, B2, N);
+         * double[][] C3 = r1.multiplica_matrices(A1, B3, N);
+         * double[][] C4 = r1.multiplica_matrices(A1, B4, N);
+         */
         // Nodo 2
         Thread[] r2T = new Thread[4];
-        double[][] C5 = r2.multiplica_matrices(A2, B1, N);
-        double[][] C6 = r2.multiplica_matrices(A2, B2, N);
-        double[][] C7 = r2.multiplica_matrices(A2, B3, N);
-        double[][] C8 = r2.multiplica_matrices(A2, B4, N);
-        // Nodo 3
-        Thread[] r3T = new Thread[4];
-        double[][] C9 = r3.multiplica_matrices(A3, B1, N);
-        double[][] C10 = r3.multiplica_matrices(A3, B2, N);
-        double[][] C11 = r3.multiplica_matrices(A3, B3, N);
-        double[][] C12 = r3.multiplica_matrices(A3, B4, N);
-        // Nodo 4
-        Thread[] r4T = new Thread[4];
-        double[][] C13 = r4.multiplica_matrices(A4, B1, N);
-        double[][] C14 = r4.multiplica_matrices(A4, B2, N);
-        double[][] C15 = r4.multiplica_matrices(A4, B3, N);
-        double[][] C16 = r4.multiplica_matrices(A4, B4, N);
+        r2T[0] = new ThreadMatrices(url2, A2, B1, N, 5);
+        r2T[1] = new ThreadMatrices(url2, A2, B2, N, 6);
+        r2T[1] = new ThreadMatrices(url2, A2, B3, N, 7);
+        r2T[2] = new ThreadMatrices(url2, A2, B4, N, 8);
+        /*
+         * double[][] C5 = r2.multiplica_matrices(A2, B1, N);
+         * double[][] C6 = r2.multiplica_matrices(A2, B2, N);
+         * double[][] C7 = r2.multiplica_matrices(A2, B3, N);
+         * double[][] C8 = r2.multiplica_matrices(A2, B4, N);
+         * // Nodo 3
+         */
 
+        Thread[] r3T = new Thread[4];
+        r3T[0] = new ThreadMatrices(url3, A3, B1, N, 9);
+        r3T[1] = new ThreadMatrices(url3, A3, B2, N, 10);
+        r3T[1] = new ThreadMatrices(url3, A3, B3, N, 11);
+        r3T[2] = new ThreadMatrices(url3, A3, B4, N, 12);
+        /*
+         * double[][] C9 = r3.multiplica_matrices(A3, B1, N);
+         * double[][] C10 = r3.multiplica_matrices(A3, B2, N);
+         * double[][] C11 = r3.multiplica_matrices(A3, B3, N);
+         * double[][] C12 = r3.multiplica_matrices(A3, B4, N);
+         */// Nodo 4
+        Thread[] r4T = new Thread[4];
+        r4T[0] = new ThreadMatrices(url4, A4, B1, N, 13);
+        r4T[1] = new ThreadMatrices(url4, A4, B2, N, 14);
+        r4T[1] = new ThreadMatrices(url4, A4, B3, N, 15);
+        r4T[2] = new ThreadMatrices(url4, A4, B4, N, 16);
+
+        /*
+         * double[][] C13 = r4.multiplica_matrices(A4, B1, N);
+         * double[][] C14 = r4.multiplica_matrices(A4, B2, N);
+         * double[][] C15 = r4.multiplica_matrices(A4, B3, N);
+         * double[][] C16 = r4.multiplica_matrices(A4, B4, N);
+         */
         // Acomoda las matrices
         // Fila 1
+        for (int i = 0; i < r1T.length; i++) {
+            r1T[i].join();
+        }
+        for (int i = 0; i < r1T.length; i++) {
+            r2T[i].join();
+        }
+        for (int i = 0; i < r1T.length; i++) {
+            r3T[i].join();
+        }
+        for (int i = 0; i < r1T.length; i++) {
+            r4T[i].join();
+        }
+
         acomoda_matriz(C, C1, 0, 0);
         acomoda_matriz(C, C2, 0, N / 4);
         acomoda_matriz(C, C3, 0, N / 2);
