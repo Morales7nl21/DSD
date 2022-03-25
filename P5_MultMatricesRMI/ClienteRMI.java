@@ -7,8 +7,10 @@ public class ClienteRMI {
     static double[][] C = new double[N][N];
 
     /**
-     * Separa la matriz de entrada A en una fila a partir del punto de inicio indicado
-     * @param A matriz
+     * Separa la matriz de entrada A en una fila a partir del punto de inicio
+     * indicado
+     * 
+     * @param A      matriz
      * @param inicio fila de inicio
      * @return Matriz fila separada de la matriz A
      */
@@ -36,6 +38,7 @@ public class ClienteRMI {
 
     /**
      * Funcion para imprimir una matriz de forma epica
+     * 
      * @param matriz
      */
     public static void ImprimirMatriz(double[][] matriz) {
@@ -51,16 +54,16 @@ public class ClienteRMI {
         /* rmi://[IP]:[Puerto]/[Nombre] */
 
         // Nodo 1
-        String url1 = "rmi://localhost/matriz";
+        String url1 = "rmi://20.228.167.56/matriz";
         InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url1);
         // Nodo 2
-        String url2 = "rmi://localhost/matriz";
+        String url2 = "rmi://20.231.30.41/matriz";
         InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url2);
         // Nodo 3
-        String url3 = "rmi://localhost/matriz";
+        String url3 = "rmi://20.25.106.174/matriz";
         InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url3);
         // Nodo 4
-        String url4 = "rmi://localhost/matriz";
+        String url4 = "rmi://20.228.229.99/matriz";
         InterfaceRMI r4 = (InterfaceRMI) Naming.lookup(url4);
 
         // Inicializa las matrices A y B
@@ -71,7 +74,6 @@ public class ClienteRMI {
                 C[i][j] = 0;
             }
 
-        
         // Impresion de matrices A y B (Solo si N=8)
         if (N == 8) {
             System.out.println("\n Matriz A\n");
@@ -142,7 +144,7 @@ public class ClienteRMI {
         acomoda_matriz(C, C14, (N / 4) * 3, N / 4);
         acomoda_matriz(C, C15, (N / 4) * 3, N / 2);
         acomoda_matriz(C, C16, (N / 4) * 3, (N / 4) * 3);
-        
+
         // TODO: Implementarlo con hilos
 
         // Imprime matrices si N=8
@@ -157,11 +159,13 @@ public class ClienteRMI {
 
         // TODO: Calcular checksum
 
-        /* //Prueba hecha en clase 
-        System.out.println(r.mayusculas("hola"));
-        System.out.println("suma=" + r.suma(10, 20));
-        
-        int[][] m = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
-        System.out.println("checksum=" + r.checksum(m));/ */
+        /*
+         * //Prueba hecha en clase
+         * System.out.println(r.mayusculas("hola"));
+         * System.out.println("suma=" + r.suma(10, 20));
+         * 
+         * int[][] m = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 } };
+         * System.out.println("checksum=" + r.checksum(m));/
+         */
     }
 }
