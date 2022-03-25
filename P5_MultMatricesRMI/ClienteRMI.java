@@ -1,10 +1,40 @@
 import java.rmi.Naming;
 
 public class ClienteRMI {
+
     static int N = 8;
     static double[][] A = new double[N][N];
     static double[][] B = new double[N][N];
     static double[][] C = new double[N][N];
+
+    class ThreadMatrices extends Thread {
+        String remoteURL;
+        double[][] mA;
+        double[][] mB;
+
+        public ThreadMatrices(String remoteURL, double[][] ma, double[][] mb) {
+            this.ma = ma;
+            this.mb = mb;
+            this.remoteURL = remoteURL;
+        }
+
+        @Override
+        public void run() {
+            try {
+
+                InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
+                double[][] Ci = r.multiplica_matrices(ma, mb, N);
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 
     /**
      * Separa la matriz de entrada A en una fila a partir del punto de inicio
@@ -103,21 +133,25 @@ public class ClienteRMI {
 
         // Multiplica matrices
         // Nodo 1
+        Thread[] r1T = new Thread[4];
         double[][] C1 = r1.multiplica_matrices(A1, B1, N);
         double[][] C2 = r1.multiplica_matrices(A1, B2, N);
         double[][] C3 = r1.multiplica_matrices(A1, B3, N);
         double[][] C4 = r1.multiplica_matrices(A1, B4, N);
         // Nodo 2
+        Thread[] r2T = new Thread[4];
         double[][] C5 = r2.multiplica_matrices(A2, B1, N);
         double[][] C6 = r2.multiplica_matrices(A2, B2, N);
         double[][] C7 = r2.multiplica_matrices(A2, B3, N);
         double[][] C8 = r2.multiplica_matrices(A2, B4, N);
         // Nodo 3
+        Thread[] r3T = new Thread[4];
         double[][] C9 = r3.multiplica_matrices(A3, B1, N);
         double[][] C10 = r3.multiplica_matrices(A3, B2, N);
         double[][] C11 = r3.multiplica_matrices(A3, B3, N);
         double[][] C12 = r3.multiplica_matrices(A3, B4, N);
         // Nodo 4
+        Thread[] r4T = new Thread[4];
         double[][] C13 = r4.multiplica_matrices(A4, B1, N);
         double[][] C14 = r4.multiplica_matrices(A4, B2, N);
         double[][] C15 = r4.multiplica_matrices(A4, B3, N);
