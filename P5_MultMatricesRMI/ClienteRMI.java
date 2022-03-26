@@ -134,7 +134,7 @@ public class ClienteRMI {
 
     public static void main(String[] args) throws Exception {
         /* rmi://[IP]:[Puerto]/[Nombre] */
-        int nnodo = Integer.parseInt(args[0]);
+
         // Nodo 1
         String url1 = "rmi://20.228.167.56/matriz";
         // InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url1);
@@ -187,10 +187,10 @@ public class ClienteRMI {
         // Nodo 1
         ThreadMatrices[] r1T = new ThreadMatrices[4];
 
-        r1T[0] = new ThreadMatrices(url1, nnodo);
-        r1T[1] = new ThreadMatrices(url2, nnodo);
-        r1T[2] = new ThreadMatrices(url3, nnodo);
-        r1T[3] = new ThreadMatrices(url4, nnodo);
+        r1T[0] = new ThreadMatrices(url1, 1);
+        r1T[1] = new ThreadMatrices(url2, 2);
+        r1T[2] = new ThreadMatrices(url3, 3);
+        r1T[3] = new ThreadMatrices(url4, 4);
         for (int i = 0; i < 4; i++) {
             r1T[i].start();
         }
