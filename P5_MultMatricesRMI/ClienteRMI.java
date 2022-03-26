@@ -53,17 +53,37 @@ public class ClienteRMI {
 
                 if (cont == 1) {
                     C1 = r.multiplica_matrices(A1, B1, N);
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            System.out.print(String.valueOf(C1[i][j]) + "\t");
+                        }
+                        System.out.println("Val i cont value 1" + String.valueOf(i));
+                    }
                     C2 = r.multiplica_matrices(A1, B2, N);
                     C3 = r.multiplica_matrices(A1, B3, N);
                     C4 = r.multiplica_matrices(A1, B4, N);
                 }
 
                 else if (cont == 2) {
+                    System.out.println("Cont value 2");
                     C5 = r.multiplica_matrices(A2, B1, N);
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            System.out.print(String.valueOf(C5[i][j]) + "\t");
+                        }
+                        System.out.println("Val i cont value 2" + String.valueOf(i));
+                    }
                     C6 = r.multiplica_matrices(A2, B2, N);
                     C7 = r.multiplica_matrices(A2, B3, N);
                     C8 = r.multiplica_matrices(A2, B4, N);
                 } else if (cont == 3) {
+                    System.out.println("Cont value 3");
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            System.out.print(String.valueOf(C13[i][j]) + "\t");
+                        }
+                        System.out.println("Val i cont value 3" + String.valueOf(i));
+                    }
                     C9 = r.multiplica_matrices(A3, B1, N);
                     C10 = r.multiplica_matrices(A3, B2, N);
                     C11 = r.multiplica_matrices(A3, B3, N);
@@ -71,7 +91,14 @@ public class ClienteRMI {
                 }
 
                 else if (cont == 4) {
+                    System.out.println("Cont value 4");
                     C13 = r.multiplica_matrices(A4, B1, N);
+                    for (int i = 0; i < 2; i++) {
+                        for (int j = 0; j < 2; j++) {
+                            System.out.print(String.valueOf(C13[i][j]) + "\t");
+                        }
+                        System.out.println("Val i cont value 4" + String.valueOf(i));
+                    }
                     C14 = r.multiplica_matrices(A4, B2, N);
                     C15 = r.multiplica_matrices(A4, B3, N);
                     C16 = r.multiplica_matrices(A4, B4, N);
@@ -192,6 +219,7 @@ public class ClienteRMI {
         r1T[2] = new ThreadMatrices(url3, 3);
         r1T[3] = new ThreadMatrices(url4, 4);
         for (int i = 0; i < 4; i++) {
+            System.out.println("Se ha creado el hilo y se ha iniciado para: " + String.valueOf(i));
             r1T[i].start();
         }
 
@@ -227,7 +255,7 @@ public class ClienteRMI {
         for (int i = 0; i < r1T.length; i++) {
             r1T[i].join();
         }
-
+        System.out.println("Se ha terminado de esperar a que los hilos terminen");
         // Acomoda las matrices
         // Fila 1
         acomoda_matriz(C, C1, 0, 0);
