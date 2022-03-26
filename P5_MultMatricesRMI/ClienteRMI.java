@@ -49,9 +49,8 @@ public class ClienteRMI {
         public void run() {
             try {
 
-                InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
-
                 if (cont == 1) {
+                    InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
                     C1 = r.multiplica_matrices(A1, B1, N);
                     for (int i = 0; i < 2; i++) {
                         for (int j = 0; j < 2; j++) {
@@ -65,6 +64,7 @@ public class ClienteRMI {
                 }
 
                 else if (cont == 2) {
+                    InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
                     System.out.println("Cont value 2");
                     C5 = r.multiplica_matrices(A2, B1, N);
                     for (int i = 0; i < 2; i++) {
@@ -91,6 +91,7 @@ public class ClienteRMI {
                 }
 
                 else if (cont == 4) {
+                    InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
                     System.out.println("Cont value 4");
                     C13 = r.multiplica_matrices(A4, B1, N);
                     for (int i = 0; i < 2; i++) {
