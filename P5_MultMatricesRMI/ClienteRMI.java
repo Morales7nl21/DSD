@@ -27,16 +27,21 @@ public class ClienteRMI {
     static double[][] C15 = new double[2][2];
     static double[][] C16 = new double[2][2];
 
+    static double[][] A1 = separa_matriz(A, 0);
+    static double[][] A2 = separa_matriz(A, N / 4);
+    static double[][] A3 = separa_matriz(A, N / 2);
+    static double[][] A4 = separa_matriz(A, (N / 4) * 3);
+    static double[][] B1 = separa_matriz(B, 0);
+    static double[][] B2 = separa_matriz(B, N / 4);
+    static double[][] B3 = separa_matriz(B, N / 2);
+    static double[][] B4 = separa_matriz(B, (N / 4) * 3);
+
     class ThreadMatrices extends Thread {
         String remoteURL;
-        double[][] mA;
-        double[][] mB;
         int cont;
 
-        public ThreadMatrices(String remoteURL, double[][] ma, double[][] mb, int cont) {
+        public ThreadMatrices(String remoteURL, int cont) {
             this.cont = cont;
-            this.mA = ma;
-            this.mB = mb;
             this.remoteURL = remoteURL;
         }
 
@@ -46,38 +51,31 @@ public class ClienteRMI {
 
                 InterfaceRMI r = (InterfaceRMI) Naming.lookup(remoteURL);
 
-                if (cont == 1)
-                    C1 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 2)
-                    C2 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 3)
-                    C3 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 4)
-                    C4 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 5)
-                    C5 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 6)
-                    C6 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 7)
-                    C7 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 8)
-                    C8 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 9)
-                    C9 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 10)
-                    C10 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 11)
-                    C11 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 12)
-                    C12 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 13)
-                    C13 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 14)
-                    C14 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 15)
-                    C15 = r.multiplica_matrices(mA, mB, N);
-                else if (cont == 16)
-                    C16 = r.multiplica_matrices(mA, mB, N);
+                if (cont == 1) {
+                    C1 = r.multiplica_matrices(A1, B1, N);
+                    C2 = r.multiplica_matrices(A1, B2, N);
+                    C3 = r.multiplica_matrices(A1, B3, N);
+                    C4 = r.multiplica_matrices(A1, B4, N);
+                }
+
+                else if (cont == 2) {
+                    C5 = r.multiplica_matrices(A2, B1, N);
+                    C6 = r.multiplica_matrices(A2, B2, N);
+                    C7 = r.multiplica_matrices(A2, B3, N);
+                    C8 = r.multiplica_matrices(A2, B4, N);
+                } else if (cont == 3) {
+                    C9 = r.multiplica_matrices(A3, B1, N);
+                    C10 = r.multiplica_matrices(A3, B2, N);
+                    C11 = r.multiplica_matrices(A3, B3, N);
+                    C12 = r.multiplica_matrices(A3, B4, N);
+                }
+
+                else if (cont == 4) {
+                    C13 = r.multiplica_matrices(A4, B1, N);
+                    C14 = r.multiplica_matrices(A4, B2, N);
+                    C15 = r.multiplica_matrices(A4, B3, N);
+                    C16 = r.multiplica_matrices(A4, B4, N);
+                }
 
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -139,16 +137,16 @@ public class ClienteRMI {
 
         // Nodo 1
         String url1 = "rmi://20.228.167.56/matriz";
-        InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url1);
+        // InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url1);
         // Nodo 2
         String url2 = "rmi://20.231.30.41/matriz";
-        InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url2);
+        // InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url2);
         // Nodo 3
         String url3 = "rmi://20.25.106.174/matriz";
-        InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url3);
+        // InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url3);
         // Nodo 4
         String url4 = "rmi://20.228.229.99/matriz";
-        InterfaceRMI r4 = (InterfaceRMI) Naming.lookup(url4);
+        // InterfaceRMI r4 = (InterfaceRMI) Naming.lookup(url4);
 
         // Inicializa las matrices A y B
         for (int i = 0; i < N; i++)
@@ -175,23 +173,27 @@ public class ClienteRMI {
             }
         }
 
-        // Separa las matrices
-        double[][] A1 = separa_matriz(A, 0);
-        double[][] A2 = separa_matriz(A, N / 4);
-        double[][] A3 = separa_matriz(A, N / 2);
-        double[][] A4 = separa_matriz(A, (N / 4) * 3);
-        double[][] B1 = separa_matriz(B, 0);
-        double[][] B2 = separa_matriz(B, N / 4);
-        double[][] B3 = separa_matriz(B, N / 2);
-        double[][] B4 = separa_matriz(B, (N / 4) * 3);
+        // Separa las matrices actualzia la separación
+        A1 = separa_matriz(A, 0);
+        A2 = separa_matriz(A, N / 4);
+        A3 = separa_matriz(A, N / 2);
+        A4 = separa_matriz(A, (N / 4) * 3);
+        B1 = separa_matriz(B, 0);
+        B2 = separa_matriz(B, N / 4);
+        B3 = separa_matriz(B, N / 2);
+        B4 = separa_matriz(B, (N / 4) * 3);
 
         // Multiplica matrices
         // Nodo 1
         Thread[] r1T = new Thread[4];
-        r1T[0] = new ThreadMatrices(url1, A1, B1, 1);
-        r1T[1] = new ThreadMatrices(url1, A1, B2, 2);
-        r1T[1] = new ThreadMatrices(url1, A1, B3, 3);
-        r1T[2] = new ThreadMatrices(url1, A1, B4, 4);
+
+        r1T[0] = new ThreadMatrices(url1, 1);
+        r1T[1] = new ThreadMatrices(url2, 2);
+        r1T[1] = new ThreadMatrices(url3, 3);
+        r1T[2] = new ThreadMatrices(url4, 4);
+        for (int i = 0; i < r1T.length; i++) {
+            r1T[i].start();
+        }
 
         /*
          * double[][] C1 = r1.multiplica_matrices(A1, B1, N);
@@ -200,11 +202,6 @@ public class ClienteRMI {
          * double[][] C4 = r1.multiplica_matrices(A1, B4, N);
          */
         // Nodo 2
-        Thread[] r2T = new Thread[4];
-        r2T[0] = new ThreadMatrices(url2, A2, B1, 5);
-        r2T[1] = new ThreadMatrices(url2, A2, B2, 6);
-        r2T[1] = new ThreadMatrices(url2, A2, B3, 7);
-        r2T[2] = new ThreadMatrices(url2, A2, B4, 8);
         /*
          * double[][] C5 = r2.multiplica_matrices(A2, B1, N);
          * double[][] C6 = r2.multiplica_matrices(A2, B2, N);
@@ -213,22 +210,12 @@ public class ClienteRMI {
          * // Nodo 3
          */
 
-        Thread[] r3T = new Thread[4];
-        r3T[0] = new ThreadMatrices(url3, A3, B1, 9);
-        r3T[1] = new ThreadMatrices(url3, A3, B2, 10);
-        r3T[1] = new ThreadMatrices(url3, A3, B3, 11);
-        r3T[2] = new ThreadMatrices(url3, A3, B4, 12);
         /*
          * double[][] C9 = r3.multiplica_matrices(A3, B1, N);
          * double[][] C10 = r3.multiplica_matrices(A3, B2, N);
          * double[][] C11 = r3.multiplica_matrices(A3, B3, N);
          * double[][] C12 = r3.multiplica_matrices(A3, B4, N);
          */// Nodo 4
-        Thread[] r4T = new Thread[4];
-        r4T[0] = new ThreadMatrices(url4, A4, B1, 13);
-        r4T[1] = new ThreadMatrices(url4, A4, B2, 14);
-        r4T[1] = new ThreadMatrices(url4, A4, B3, 15);
-        r4T[2] = new ThreadMatrices(url4, A4, B4, 16);
 
         /*
          * double[][] C13 = r4.multiplica_matrices(A4, B1, N);
@@ -239,15 +226,6 @@ public class ClienteRMI {
 
         for (int i = 0; i < r1T.length; i++) {
             r1T[i].join();
-        }
-        for (int i = 0; i < r1T.length; i++) {
-            r2T[i].join();
-        }
-        for (int i = 0; i < r1T.length; i++) {
-            r3T[i].join();
-        }
-        for (int i = 0; i < r1T.length; i++) {
-            r4T[i].join();
         }
 
         // Acomoda las matrices
