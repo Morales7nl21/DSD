@@ -189,9 +189,9 @@ public class ClienteRMI {
 
         r1T[0] = new ThreadMatrices(url1, 1);
         r1T[1] = new ThreadMatrices(url2, 2);
-        r1T[1] = new ThreadMatrices(url3, 3);
-        r1T[2] = new ThreadMatrices(url4, 4);
-        for (int i = 0; i < r1T.length; i++) {
+        r1T[2] = new ThreadMatrices(url3, 3);
+        r1T[3] = new ThreadMatrices(url4, 4);
+        for (int i = 0; i < 4; i++) {
             r1T[i].start();
         }
 
