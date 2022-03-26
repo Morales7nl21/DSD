@@ -136,16 +136,16 @@ public class ClienteRMI {
         /* rmi://[IP]:[Puerto]/[Nombre] */
 
         // Nodo 1
-        String url1 = "rmi://20.228.167.56/matriz";
+        String url1 = "rmi://20.231.30.41/matriz";
         // InterfaceRMI r1 = (InterfaceRMI) Naming.lookup(url1);
         // Nodo 2
-        String url2 = "rmi://20.231.30.41/matriz";
+        String url2 = "rmi://20.25.106.174/matriz";
         // InterfaceRMI r2 = (InterfaceRMI) Naming.lookup(url2);
         // Nodo 3
-        String url3 = "rmi://20.25.106.174/matriz";
+        String url3 = "rmi://20.228.229.99/matriz";
         // InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url3);
         // Nodo 4
-        String url4 = "rmi://20.228.229.99/matriz";
+        String url4 = "rmi://20.25.57.185/matriz";
         // InterfaceRMI r4 = (InterfaceRMI) Naming.lookup(url4);
 
         // Inicializa las matrices A y B
