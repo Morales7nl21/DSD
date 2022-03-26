@@ -1,4 +1,7 @@
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 public class ClienteRMI {
 
@@ -185,10 +188,10 @@ public class ClienteRMI {
         // Multiplica matrices
         // Nodo 1
         Thread[] r1T = new Thread[4];
-        r1T[0] = new ThreadMatrices(url1, A1, B1, N, 1);
-        r1T[1] = new ThreadMatrices(url1, A1, B2, N, 2);
-        r1T[1] = new ThreadMatrices(url1, A1, B3, N, 3);
-        r1T[2] = new ThreadMatrices(url1, A1, B4, N, 4);
+        r1T[0] = new ThreadMatrices(url1, A1, B1, 1);
+        r1T[1] = new ThreadMatrices(url1, A1, B2, 2);
+        r1T[1] = new ThreadMatrices(url1, A1, B3, 3);
+        r1T[2] = new ThreadMatrices(url1, A1, B4, 4);
 
         /*
          * double[][] C1 = r1.multiplica_matrices(A1, B1, N);
@@ -198,10 +201,10 @@ public class ClienteRMI {
          */
         // Nodo 2
         Thread[] r2T = new Thread[4];
-        r2T[0] = new ThreadMatrices(url2, A2, B1, N, 5);
-        r2T[1] = new ThreadMatrices(url2, A2, B2, N, 6);
-        r2T[1] = new ThreadMatrices(url2, A2, B3, N, 7);
-        r2T[2] = new ThreadMatrices(url2, A2, B4, N, 8);
+        r2T[0] = new ThreadMatrices(url2, A2, B1, 5);
+        r2T[1] = new ThreadMatrices(url2, A2, B2, 6);
+        r2T[1] = new ThreadMatrices(url2, A2, B3, 7);
+        r2T[2] = new ThreadMatrices(url2, A2, B4, 8);
         /*
          * double[][] C5 = r2.multiplica_matrices(A2, B1, N);
          * double[][] C6 = r2.multiplica_matrices(A2, B2, N);
@@ -211,10 +214,10 @@ public class ClienteRMI {
          */
 
         Thread[] r3T = new Thread[4];
-        r3T[0] = new ThreadMatrices(url3, A3, B1, N, 9);
-        r3T[1] = new ThreadMatrices(url3, A3, B2, N, 10);
-        r3T[1] = new ThreadMatrices(url3, A3, B3, N, 11);
-        r3T[2] = new ThreadMatrices(url3, A3, B4, N, 12);
+        r3T[0] = new ThreadMatrices(url3, A3, B1, 9);
+        r3T[1] = new ThreadMatrices(url3, A3, B2, 10);
+        r3T[1] = new ThreadMatrices(url3, A3, B3, 11);
+        r3T[2] = new ThreadMatrices(url3, A3, B4, 12);
         /*
          * double[][] C9 = r3.multiplica_matrices(A3, B1, N);
          * double[][] C10 = r3.multiplica_matrices(A3, B2, N);
@@ -222,10 +225,10 @@ public class ClienteRMI {
          * double[][] C12 = r3.multiplica_matrices(A3, B4, N);
          */// Nodo 4
         Thread[] r4T = new Thread[4];
-        r4T[0] = new ThreadMatrices(url4, A4, B1, N, 13);
-        r4T[1] = new ThreadMatrices(url4, A4, B2, N, 14);
-        r4T[1] = new ThreadMatrices(url4, A4, B3, N, 15);
-        r4T[2] = new ThreadMatrices(url4, A4, B4, N, 16);
+        r4T[0] = new ThreadMatrices(url4, A4, B1, 13);
+        r4T[1] = new ThreadMatrices(url4, A4, B2, 14);
+        r4T[1] = new ThreadMatrices(url4, A4, B3, 15);
+        r4T[2] = new ThreadMatrices(url4, A4, B4, 16);
 
         /*
          * double[][] C13 = r4.multiplica_matrices(A4, B1, N);
