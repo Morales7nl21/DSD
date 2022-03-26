@@ -77,17 +77,19 @@ public class ClienteRMI {
                     C7 = r.multiplica_matrices(A2, B3, N);
                     C8 = r.multiplica_matrices(A2, B4, N);
                 } else if (cont == 3) {
-                    System.out.println("Cont value 3");
-                    for (int i = 0; i < 2; i++) {
-                        for (int j = 0; j < 2; j++) {
-                            System.out.print(String.valueOf(C13[i][j]) + "\t");
-                        }
-                        System.out.println("Val i cont value 3" + String.valueOf(i));
-                    }
-                    C9 = r.multiplica_matrices(A3, B1, N);
-                    C10 = r.multiplica_matrices(A3, B2, N);
-                    C11 = r.multiplica_matrices(A3, B3, N);
-                    C12 = r.multiplica_matrices(A3, B4, N);
+                    /*
+                     * System.out.println("Cont value 3");
+                     * for (int i = 0; i < 2; i++) {
+                     * for (int j = 0; j < 2; j++) {
+                     * System.out.print(String.valueOf(C13[i][j]) + "\t");
+                     * }
+                     * System.out.println("Val i cont value 3" + String.valueOf(i));
+                     * }
+                     * C9 = r.multiplica_matrices(A3, B1, N);
+                     * C10 = r.multiplica_matrices(A3, B2, N);
+                     * C11 = r.multiplica_matrices(A3, B3, N);
+                     * C12 = r.multiplica_matrices(A3, B4, N);
+                     */
                 }
 
                 else if (cont == 4) {
