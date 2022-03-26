@@ -36,7 +36,7 @@ public class ClienteRMI {
     static double[][] B3 = separa_matriz(B, N / 2);
     static double[][] B4 = separa_matriz(B, (N / 4) * 3);
 
-    class ThreadMatrices extends Thread {
+    static class ThreadMatrices extends Thread {
         String remoteURL;
         int cont;
 
@@ -185,7 +185,7 @@ public class ClienteRMI {
 
         // Multiplica matrices
         // Nodo 1
-        Thread[] r1T = new Thread[4];
+        ThreadMatrices[] r1T = new ThreadMatrices[4];
 
         r1T[0] = new ThreadMatrices(url1, 1);
         r1T[1] = new ThreadMatrices(url2, 2);
@@ -250,8 +250,6 @@ public class ClienteRMI {
         acomoda_matriz(C, C15, (N / 4) * 3, N / 2);
         acomoda_matriz(C, C16, (N / 4) * 3, (N / 4) * 3);
 
-        // TODO: Implementarlo con hilos
-
         // Imprime matrices si N=8
         if (N == 8) {
             System.out.println("\n Matriz A\n");
@@ -262,7 +260,14 @@ public class ClienteRMI {
             ImprimirMatriz(C);
         }
 
-        // TODO: Calcular checksum
+        // Calcular checksum
+        double checksum = 0.0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                checksum += C[i][j];
+            }
+        }
+        System.out.println("\nChecksum para "+N+": " + checksum);
 
         /*
          * //Prueba hecha en clase

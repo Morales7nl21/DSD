@@ -50,7 +50,22 @@ public class RMIClient {
         }
     }
 
-    public static void main(String[] args) throws Exception{
+    class HiloMultiplicador extends Thread {
+        String url;
+        int nodo;
+
+        HiloMultiplicador(String url, int nodo) {
+            this.url = url;
+            this.nodo = nodo;
+        }
+
+        @Override
+        public void run(){
+            
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
         /* rmi://[IP]:[Puerto]/[Nombre] */
 
         // Nodo 1
@@ -165,4 +180,5 @@ public class RMIClient {
         }
         System.out.println("\nChecksum: " + checksum);
     }
+    
 }
