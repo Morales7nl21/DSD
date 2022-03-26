@@ -173,7 +173,7 @@ public class ClienteRMI {
         String url3 = "rmi://20.228.229.99/matriz";
         // InterfaceRMI r3 = (InterfaceRMI) Naming.lookup(url3);
         // Nodo 4
-        String url4 = "rmi://20.25.57.185/matriz";
+        String url4 = "rmi://20.228.203.112/matriz";
         // InterfaceRMI r4 = (InterfaceRMI) Naming.lookup(url4);
 
         // Inicializa las matrices A y B
