@@ -236,8 +236,7 @@ public class ClienteRMI {
          * double[][] C15 = r4.multiplica_matrices(A4, B3, N);
          * double[][] C16 = r4.multiplica_matrices(A4, B4, N);
          */
-        // Acomoda las matrices
-        // Fila 1
+
         for (int i = 0; i < r1T.length; i++) {
             r1T[i].join();
         }
@@ -251,6 +250,8 @@ public class ClienteRMI {
             r4T[i].join();
         }
 
+        // Acomoda las matrices
+        // Fila 1
         acomoda_matriz(C, C1, 0, 0);
         acomoda_matriz(C, C2, 0, N / 4);
         acomoda_matriz(C, C3, 0, N / 2);
