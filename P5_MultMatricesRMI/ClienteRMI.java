@@ -267,7 +267,7 @@ public class ClienteRMI {
                 checksum += C[i][j];
             }
         }
-        System.out.println("\nChecksum para "+N+": " + checksum);
+        System.out.println("\nChecksum para " + N + ": " + checksum);
 
         /*
          * //Prueba hecha en clase
