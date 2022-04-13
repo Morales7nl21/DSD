@@ -300,6 +300,7 @@ class JavaWebS {
             System.out.print("MENU\nSelecciona una opcion:  \n");
             System.out.println("\ta. Alta usuario\n\tb. Consulta usuario");
             System.out.println("\tc. Borra usuario\n\td.Salir");
+            System.out.println("Opcion:");
             opc = leer.next().charAt(0);
             switch (opc) {
                 case 'a':
