@@ -82,6 +82,10 @@ class JavaWebS {
     public static void registra_usuario() {
         Usuario nuevoUsuario = new Usuario("", "", "", "", "", "", "");
         Scanner datosUsuarioReader = new Scanner(System.in);
+        System.out.println("Indique el email de usuario");
+        String dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setEmail(dus);
         System.out.println("Indique el nombre de usuario");
         String dus = datosUsuarioReader.nextLine();
         if (!dus.isEmpty())
