@@ -232,6 +232,18 @@ class JavaWebS {
                 }
                 System.out.println(usuario.toString());
 
+                Scanner lecturaModificacion = new Scanner(System.in);
+                String modificaPregunta;
+                System.out.println("Desea modificar el usuario (s/n) ?: ");
+                modificaPregunta = lecturaModificacion.nextLine();
+                if (modificaPregunta.equals("s")) {
+                    conexion.disconnect();
+                    modifica_usuario(usuario);
+                } else if (modificaPregunta.equals("n"))
+                    System.out.println("");
+                else
+                    System.err.println("respuesta no valida");
+
             } else {
                 // hubo error
                 BufferedReader br = new BufferedReader(new InputStreamReader((conexion.getErrorStream())));
@@ -239,20 +251,7 @@ class JavaWebS {
                 while ((respuesta = br.readLine()) != null)
                     System.out.println(respuesta);
             }
-            Scanner lecturaModificacion = new Scanner(System.in);
-            String modificaPregunta;
-            System.out.println("Desea modificar el usuario (s/n) ?: ");
-            modificaPregunta = lecturaModificacion.nextLine();
-            if (modificaPregunta.equals("s")) {
-                conexion.disconnect();
-                modifica_usuario(usuario);
-                // conexion.disconnect();
-            } else if (modificaPregunta.equals("n")) {
-                System.out.println("");
-            } else {
-                System.err.println("respuesta no valida");
 
-            }
             conexion.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
