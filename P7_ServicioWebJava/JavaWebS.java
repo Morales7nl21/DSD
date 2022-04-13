@@ -87,7 +87,7 @@ class JavaWebS {
         if (!dus.isEmpty())
             nuevoUsuario.setEmail(dus);
         System.out.println("Indique el nombre de usuario");
-        String dus = datosUsuarioReader.nextLine();
+        dus = datosUsuarioReader.nextLine();
         if (!dus.isEmpty())
             nuevoUsuario.setNombre(dus);
         System.out.println("Indique el apellido paterno");
