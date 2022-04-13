@@ -79,6 +79,62 @@ class JavaWebS {
         }
     }
 
+    public static void registra_usuario() {
+        Usuario nuevoUsuario = new Usuario("", "", "", "", "", "", "");
+        Scanner datosUsuarioReader = new Scanner(System.in);
+        System.out.println("Indique el nombre de usuario");
+        String dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setNombre(dus);
+        System.out.println("Indique el apellido paterno");
+        dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setApellidoPaterno(dus);
+        System.out.println("Indique el apellido materno");
+        dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setApellidoMaterno(dus);
+
+        System.out.println("Indique el telefono");
+        dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setTelefono(dus);
+
+        System.out.println("Indique el genero (M/F)");
+        dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setGenero(dus);
+
+        System.out.println("Indique la fecha de nacimiento yyyy-MM-dd HH:mm:ss.SS");
+        dus = datosUsuarioReader.nextLine();
+        if (!dus.isEmpty())
+            nuevoUsuario.setFechaNacimiento(dus);
+        Gson gson = new Gson();
+        String usuarioJson = gson.toJson(nuevoUsuario);
+        try {
+            URL url = new URL("http://20.232.32.191:8080/Servicio/rest/ws/alta_usuario");
+            HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+            conexion.setDoOutput(true);
+            conexion.setRequestMethod("POST");
+            conexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            String parametros = "usuario=" + URLEncoder.encode(usuarioJson, "UTF-8");
+            OutputStream os = conexion.getOutputStream();
+            os.write(parametros.getBytes());
+            os.flush();
+            if (conexion.getResponseCode() == 200) {
+                System.out.println("OK");
+            } else {
+                BufferedReader br = new BufferedReader(new InputStreamReader((conexion.getErrorStream())));
+                String respuesta;
+                while ((respuesta = br.readLine()) != null)
+                    System.out.println(respuesta);
+            }
+            conexion.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void modifica_usuario(Usuario usuario) {
         Scanner datosUsuarioReader = new Scanner(System.in);
         System.out.println("Indique el nombre de usuario");
@@ -210,6 +266,7 @@ class JavaWebS {
             opc = leer.next().charAt(0);
             switch (opc) {
                 case 'a':
+                    registra_usuario();
                     break;
                 case 'b':
                     consulta_usuario();
