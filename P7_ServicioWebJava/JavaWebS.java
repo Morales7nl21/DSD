@@ -83,52 +83,31 @@ class JavaWebS {
         Scanner datosUsuarioReader = new Scanner(System.in);
         System.out.println("Indique el nombre de usuario");
         String dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setNombre(dus);
-            System.out.println("Nombre nuevo: " + dus);
-        } else {
-            System.out.println("Nombre no cabiado " + usuario.nombre);
-        }
         System.out.println("Indique el apellido paterno");
         dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setApellidoPaterno(dus);
-            System.out.println("Apellido paterno nuevo: " + dus);
-        } else {
-            System.out.println("Apellido paterno no cabiado " + usuario.apellido_paterno);
-        }
         System.out.println("Indique el apellido materno");
         dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setApellidoMaterno(dus);
-            System.out.println("Apellido materno nuevo: " + dus);
-        } else {
-            System.out.println("Apellido materno no cabiado " + usuario.apellido_materno);
-        }
+
         System.out.println("Indique el telefono");
         dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setTelefono(dus);
-            System.out.println("Telefono nuevo: " + dus);
-        } else {
-            System.out.println("Telefono no cabiado " + usuario.telefono);
-        }
+
         System.out.println("Indique el genero (M/F)");
         dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setGenero(dus);
-            System.out.println("Genero nuevo: " + dus);
-        } else {
-            System.out.println("Genero no cabiado " + usuario.genero);
-        }
+
         System.out.println("Indique la fecha de nacimiento yyyy-MM-dd HH:mm:ss.SS");
         dus = datosUsuarioReader.nextLine();
-        if (!dus.isEmpty()) {
+        if (!dus.isEmpty())
             usuario.setFechaNacimiento(dus);
-            System.out.println("Fecha de nacimiento nuevo: " + dus);
-        } else {
-            System.out.println("Fecha de nacimiento no cabiado " + usuario.fecha_nacimiento);
-        }
         Gson gson = new Gson();
         String usuarioJson = gson.toJson(usuario);
         System.out.println(usuarioJson);
@@ -144,10 +123,7 @@ class JavaWebS {
             os.write(parametros.getBytes());
             os.flush();
             if (conexion.getResponseCode() == 200) {
-                BufferedReader br = new BufferedReader(new InputStreamReader((conexion.getInputStream())));
-                String respuesta;
-                while ((respuesta = br.readLine()) != null)
-                    System.out.println(respuesta);
+                System.out.println("OK");
             } else {
                 BufferedReader br = new BufferedReader(new InputStreamReader((conexion.getErrorStream())));
                 String respuesta;
