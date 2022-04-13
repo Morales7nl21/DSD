@@ -110,7 +110,6 @@ class JavaWebS {
             usuario.setFechaNacimiento(dus);
         Gson gson = new Gson();
         String usuarioJson = gson.toJson(usuario);
-        System.out.println(usuarioJson);
 
         try {
             URL url = new URL("http://20.232.32.191:8080/Servicio/rest/ws/modifica_usuario");
