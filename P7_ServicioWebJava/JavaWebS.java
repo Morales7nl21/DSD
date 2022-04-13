@@ -258,6 +258,40 @@ class JavaWebS {
         }
     }
 
+    public static void elimina_usuario() {
+        try {
+            URL url = new URL("http://20.232.32.191:8080/Servicio/rest/ws/borra_usuario");
+            // URL url = new URL("http://20.232.32.191:8080/prueba.html");
+            HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+            // true si se va a enviar un "body", en este caso el "body" son los parámetros
+            conexion.setDoOutput(true);
+            // en este caso utilizamos el método POST de HTTP
+            conexion.setRequestMethod("POST");
+            // indica que la petición estará codificada como URL
+            conexion.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            // el método web "consulta_usuario" recibe como parámetro el email de un
+            // usuario, en este caso el email es a@c
+            Scanner leer = new Scanner(System.in);
+            System.out.println("Introduce el correo electronico que se va a eliminar: ");
+            String emalToRead = leer.nextLine();
+            String parametros = "email=" + URLEncoder.encode(emalToRead, "UTF-8");
+            OutputStream os = conexion.getOutputStream();
+            os.write(parametros.getBytes());
+            os.flush();// se debe verificar si hubo error
+            if (conexion.getResponseCode() == 200)
+                System.out.println("OK");
+            else {
+                BufferedReader br = new BufferedReader(new InputStreamReader((conexion.getErrorStream())));
+                String respuesta; // el método web regresa una instancia de la clase Error en formato JSON
+                while ((respuesta = br.readLine()) != null)
+                    System.out.println(respuesta);
+            }
+            conexion.disconnect();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
     public static void main(String[] args) {
 
         char opc = 'X';
