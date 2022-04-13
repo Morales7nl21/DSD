@@ -288,7 +288,7 @@ class JavaWebS {
             }
             conexion.disconnect();
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
     }
 
