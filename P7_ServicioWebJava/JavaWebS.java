@@ -309,8 +309,10 @@ class JavaWebS {
                     consulta_usuario();
                     break;
                 case 'c':
+                    elimina_usuario();
                     break;
                 case 'd':
+                    System.out.println("Saliendo");
                     break;
                 default:
                     break;
